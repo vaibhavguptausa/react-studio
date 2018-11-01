@@ -1,29 +1,11 @@
 import React from 'react';
 import './workspace.css';
+import { DropTarget } from 'react-dnd-html5-backend';
 
 export default class Workspace extends React.Component {
     constructor(props) {
         super(props);
     }
-
-    dragstart_handler(ev) {
-        ev.dropEffect = "move";
-        ev.dataTransfer.setData("text/plain", ev.target.id);
-    }
-
-    dragover_handler(ev) {
-        ev.preventDefault();
-        ev.dataTransfer.dropEffect = "move"
-    }
-
-    drop_handler(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text/plain");
-        ev.target.appendChild(document.getElementById('textBox1'));
-    }
-
-    
-
     render() {
         return (
             <div>

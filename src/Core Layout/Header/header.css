@@ -1,6 +1,6 @@
 .main-header {
-    background-color: rgba(0, 0, 0, 0.452);
-    position: fixed;
+    background-color: blue;
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: 100;
