@@ -6,6 +6,7 @@ import Box from './Box' ;
 import HTML5Backend from 'react-dnd-html5-backend';
 import NormalBox from './NormalBox';
 import {boxProp} from '../../index';
+import InputField from './Inputfield';
 const Target = {
     drop(){
        
@@ -14,6 +15,8 @@ const Target = {
   };
   
   let numberBox=0;
+  let numberInput=0;
+  let children=[];
   class Droppable extends Component {
       constructor(props)
       {
@@ -21,25 +24,44 @@ const Target = {
           
       }
       componentWillMount=()=>{
+        children=[];
         numberBox=0;
+        numberInput=0;
       }
       componentWillUpdate=()=>{
-        if(this.props.didDrop)
-        numberBox++;
-        console.log(`number`, numberBox);
-      }
-      insertBox=()=>{
-        let children=[];
-        for(let i=0;i<numberBox;i++)
+        if(this.props.didDrop && this.props.item=='box')
         {
+          numberBox++;
           children.push(<NormalBox />);
         }
-        return children;
+        if(this.props.didDrop && this.props.item=='input')
+        {
+          numberInput++;
+          children.push(<InputField />)
+        }
+        console.log(`numberBox`, numberBox);
+        console.log(`numberInput`, numberInput);
+        console.log(`children`, children);
       }
-    
+    //   insertBox=()=>{
+        
+    //    // for(let i=0;i<numberBox;i++)
+    //     {
+    //       children.push(<NormalBox />);
+    //     }
+    //   //  for(let i=0;i<numberInput;i++)
+      
+      
+    //     return children;
+    //   }
+    // insertInput=()=>{
+      
+    //     children.push(<InputField />)
+    //     return children ;
+    // }
     render() {
         
-      const {connectDropTarget, isOver, didDrop } = this.props;
+      const {connectDropTarget, isOver, didDrop,item } = this.props;
       var NormalBoxStatus= didDrop ;
    
       return (
@@ -52,7 +74,7 @@ const Target = {
           backgroundColor: 'pink'
           
         }}>
-          {this.insertBox()}         
+          {children}         
         </div>
         )
        
@@ -61,8 +83,9 @@ const Target = {
     }
   }
   
-  export default DropTarget(ItemTypes.BOX, Target, (connect, monitor) => ({
+  export default DropTarget([ItemTypes.BOX, ItemTypes.INPUT], Target, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
     didDrop: monitor.didDrop(),
+    item : monitor.getItemType()
   }))(Droppable);
