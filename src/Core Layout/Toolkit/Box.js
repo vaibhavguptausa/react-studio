@@ -23,7 +23,7 @@ const boxSource = {
       }
       render() {
           const { isDragging, connectDragSource } = this.props;
-          return connectDragSource(<div style={{height: `${100}px` , width: `${100}px`, backgroundColor: `red`, position: 'absolute', paddingTop:   `${10}px`}}> {this.props.children}</div>)  ;
+          return connectDragSource(<div style={{height: `${100}px` , width: `${100}px`, backgroundColor: `red`, position: 'absolute', paddingTop:   `${10}px`, zIndex:`$20`}}> {this.props.children}</div>)  ;
         }
     }
    

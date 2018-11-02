@@ -6,13 +6,23 @@ import Workspace from './Core Layout/Workspace/Workspace.js';
 import { DragDropContext } from 'react-dnd';
 import Droppable from './Core Layout/Toolkit/droppable';
 import HTML5Backend from 'react-dnd-html5-backend';
- class App extends React.Component {
+import Box from './Core Layout/Toolkit/Box';
+import {boxProp} from './index';
+import NormalBox from './Core Layout/Toolkit/NormalBox';
+ export class App extends React.Component {
+   constructor(props){
+     super(props);
+     
+   }
+  
+   
   render() {
+    
     return (
       <div className="App">
         <Header />
         <Toolkit />
-        <Droppable />
+        <Droppable ></Droppable>
       </div>
     );
   }
