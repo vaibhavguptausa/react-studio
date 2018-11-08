@@ -10,7 +10,7 @@ export default class Toolkit extends React.Component {
         return (
             <ul className="toolkit-sidebar">
                 
-                   <Box/>
+                   <Box Type='BOX'/>
                    <DraggableInputField  />    
                 
             </ul>

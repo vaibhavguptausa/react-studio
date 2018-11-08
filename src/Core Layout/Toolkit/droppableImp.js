@@ -8,12 +8,6 @@ import NormalBox from './NormalBox';
 import { boxProp } from '../../index';
 import InputField from './Inputfield';
 import { createChildContext } from '../../../node_modules/react-dnd/lib/DragDropContext';
-let numberBox = 0;
-let numberInput = 0;
-let children = [];
-let X = `${0}px`;
-let Y = `${0}px`;
-let childrenPosition = [];
 
 const moveBox=(id, positionX, positionY)=>{
   for(var i=0;i<children.length;i++)
@@ -21,8 +15,8 @@ const moveBox=(id, positionX, positionY)=>{
     if(children[i].id===id)
     {
       console.log(`before`, children[i]);
-      children[i]['x']=positionX;
-      children[i]['y']=positionY;
+      children[i].x=positionX;
+      children[i].y=positionY;
       console.log(`after`, children[i]);
     }
 
@@ -40,30 +34,16 @@ const Target = {
 			return
 		}
     const item = monitor.getItem()
-    var position= monitor.getClientOffset();
-   //var position1= monitor.getDifferenceFromInitialOffset()
-    if (item.Type==='BOX') {
-      
-      numberBox++;
-        
-        console.log(`pos`,position);
-        var tempChildStatus={
-          "id" : children.length,
-          "x": position.x,
-          "y": position.y,
-          "Type":"NORMALBOX" 
-        }
-       // this.setState({position: this.props.position});
-       
-        children.push(tempChildStatus);
-      
-     
+    console.log(`item`, item)
+    if(item.Type==='BOX'){
+      console.log(`found a BOX`)
+      return 
     }
-    else if(item.Type==='NORMALBOX')
-    {
-      const delta =position 
-      const positionX = (delta.x)
-      const positionY = (delta.y)
+		const delta = monitor.getDifferenceFromInitialOffset() 
+		const positionX = Math.round(item.positionX + delta.x)
+		const positionY = Math.round(item.positionY + delta.y)
+    if(item.Type==='NORMALBOX') {
+      console.log(`found a NORMALBOX`);
       moveBox(item.id, positionX, positionY);
     }
 	},
@@ -73,7 +53,7 @@ const Target = {
 class Droppable extends Component {
   constructor(props) {
     super(props);
-   // this.state={position: this.props.position};
+    
   }
   
   componentWillMount = () => {
@@ -83,19 +63,43 @@ class Droppable extends Component {
     X = `${0}px`;
     Y = `${0}px`;
   }
-  
-  // componentWillUpdate = () => {
+  componentWillUpdate = () => {
     
-  //   if (this.props.position) {
-  //     X = `${this.props.position.x}px`;
-  //     Y = `${this.props.position.y}px`;
-  //    console.log(`drop position`, this.props.position);
-  //   }
-    
+    if (this.props.position) {
+      X = `${this.props.position.x}px`;
+      Y = `${this.props.position.y}px`;
+     console.log(`drop position`, this.props.position);
+    }
+    if (this.props.didDrop && this.props.item == 'box' && !this.props.item.id) {
+      
+      numberBox++;
+       
+        var tempChildStatus={
+          "id" : children.length+1,
+          "x": {X},
+          "y":{Y},
+          "type":'box'
+        }
+       
+        children.push(tempChildStatus);
+      
+     
+    }
 
+    if (this.props.didDrop && this.props.item == 'input' && !this.props.item.id) {
+      numberInput++;
+      var tempChildStatus={
+        "id" : children.length+1,
+        "x": {X},
+        "y":{Y},
+        "type":'input'
+      }
+     
+      children.push(tempChildStatus);
+    }
 
    
-  // }
+  }
  
   render() {
     console.log(`children`, children);
@@ -110,12 +114,12 @@ class Droppable extends Component {
           width: '100%',
           height: '100%',
           backgroundColor: 'pink',
-          marginLeft: `${0}px`,
-          marginTop: `${0}px`
+          marginLeft: `${240}px`,
+          marginTop: `${95}px`
 
         }}>
           {children.map((child, index)=>{
-          if(child.Type==='NORMALBOX')
+          if(child.type==='box')
          return  <NormalBox Type='NORMALBOX' id={index} positionX={child.x} positionY={child.y} />
           else{
             return <InputField Type='INPUTFIELD' id={index} positionX={child.x} positionY={child.y} />
@@ -133,9 +137,6 @@ export default DropTarget([ItemTypes.BOX, ItemTypes.INPUT, ItemTypes.NORMALBOX],
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   didDrop: monitor.didDrop(),
-  item: monitor.getItem(),
-  itemType: monitor.getItemType(),
-  position: monitor.getClientOffset(),
-  deltaPosition :monitor.getDifferenceFromInitialOffset()
-  
+  item: monitor.getItemType(),
+  position: monitor.getClientOffset()
 }))(Droppable);

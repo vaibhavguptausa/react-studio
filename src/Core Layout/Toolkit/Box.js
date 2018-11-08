@@ -6,7 +6,8 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 const boxSource = {
     beginDrag(props) {
-      return {};
+      const {Type}= props;
+      return {Type};
     }
   };
   function collect(connect, monitor) {
@@ -28,10 +29,7 @@ const boxSource = {
     }
    
       
-    Box.propTypes = {
-        
-        connectDragSource: PropTypes.func.isRequired,
-      };
+   
     export default DragSource(ItemTypes.BOX, boxSource, connect => ({
         connectDragSource: connect.dragSource(),
       }))(Box);
