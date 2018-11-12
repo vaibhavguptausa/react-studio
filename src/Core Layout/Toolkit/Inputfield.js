@@ -13,6 +13,7 @@
          constructor(props)
          {
              super(props);
+          
          }
          
           render() {
@@ -29,7 +30,10 @@
           return null ;
         }
             console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
-            return 	(connectDragSource && connectDragSource(<div style={{marginTop:`${this.props.positionY}px`,padding: `${0}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit',height: `${50}px` , width: `${200}px`, backgroundColor: `green`}}> <input /> </div> ))
+            return 	(connectDragSource && connectDragSource(
+            <div style={{marginTop:`${this.props.positionY}px`,padding: `${0}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit',height: `${50}px` , width: `${200}px`, backgroundColor: `green`}}>
+             <input /> 
+             </div> ))
             }
         }
        
