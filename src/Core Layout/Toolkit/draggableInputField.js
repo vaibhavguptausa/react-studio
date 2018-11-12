@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
 import { ItemTypes } from './constants';
 import { DragSource } from 'react-dnd';
-import PropTypes from 'prop-types';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+
 const InputSource = {
-    beginDrag(props) {
-      return {};
-    }
-  };
-  function collect(connect, monitor) {
-    return {
-      connectDragSource: connect.dragSource(),
-      isDragging: monitor.isDragging()
-    }
+  beginDrag(props) {
+    const {Type}= props;
+    return {Type};
   }
+  };
+ 
+  
   
  class DraggableInputField extends Component {
       constructor(props)
@@ -29,6 +24,6 @@ const InputSource = {
    
       
     
-    export default DragSource(ItemTypes.INPUT, InputSource, connect => ({
+    export default DragSource(ItemTypes.DRAGGABLEINPUT, InputSource, connect => ({
         connectDragSource: connect.dragSource(),
       }))(DraggableInputField);

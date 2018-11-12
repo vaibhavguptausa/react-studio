@@ -1,13 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { ItemTypes } from './constants';
 import { DropTarget, DragLayer } from 'react-dnd';
-import { DragDropContext } from 'react-dnd';
-import Box from './Box';
-import HTML5Backend from 'react-dnd-html5-backend';
 import NormalBox from './NormalBox';
-import { boxProp } from '../../index';
 import InputField from './Inputfield';
-import { createChildContext } from '../../../node_modules/react-dnd/lib/DragDropContext';
+
 let numberBox = 0;
 let numberInput = 0;
 let children = [];
@@ -15,7 +11,7 @@ let X = `${0}px`;
 let Y = `${0}px`;
 let childrenPosition = [];
 
-const moveBox=(id, positionX, positionY)=>{
+const moveElement=(id, positionX, positionY)=>{
   for(var i=0;i<children.length;i++)
   {
     if(children[i].id===id)
@@ -41,6 +37,7 @@ const Target = {
 		}
     const item = monitor.getItem()
     var position= monitor.getClientOffset();
+    console.log(`childtype`, item.Type);
    //var position1= monitor.getDifferenceFromInitialOffset()
     if (item.Type==='BOX') {
       
@@ -64,7 +61,26 @@ const Target = {
       const delta =position 
       const positionX = (delta.x)
       const positionY = (delta.y)
-      moveBox(item.id, positionX, positionY);
+      moveElement(item.id, positionX, positionY);
+    }
+    else if(item.Type==='DRAGGABLEINPUT'){
+      console.log(`pos`,position);
+      var tempChildStatus={
+        "id" : children.length,
+        "x": position.x,
+        "y": position.y,
+        "Type":"INPUT" 
+      }
+     // this.setState({position: this.props.position});
+     
+      children.push(tempChildStatus);
+    }
+    else if(item.Type==='INPUT')
+    {
+      const delta =position 
+      const positionX = (delta.x)
+      const positionY = (delta.y)
+      moveElement(item.id, positionX, positionY);
     }
 	},
 }
@@ -117,8 +133,8 @@ class Droppable extends Component {
           {children.map((child, index)=>{
           if(child.Type==='NORMALBOX')
          return  <NormalBox Type='NORMALBOX' id={index} positionX={child.x} positionY={child.y} />
-          else{
-            return <InputField Type='INPUTFIELD' id={index} positionX={child.x} positionY={child.y} />
+          else if(child.Type==='INPUT'){
+            return <InputField Type='INPUT' id={index} positionX={child.x} positionY={child.y} />
           }
           })}
         </div>
@@ -129,7 +145,7 @@ class Droppable extends Component {
   }
 }
 
-export default DropTarget([ItemTypes.BOX, ItemTypes.INPUT, ItemTypes.NORMALBOX], Target, (connect, monitor) => ({
+export default DropTarget([ItemTypes.BOX, ItemTypes.INPUT, ItemTypes.NORMALBOX, ItemTypes.DRAGGABLEINPUT], Target, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   didDrop: monitor.didDrop(),

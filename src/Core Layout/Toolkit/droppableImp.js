@@ -53,7 +53,7 @@ const Target = {
 class Droppable extends Component {
   constructor(props) {
     super(props);
-    
+    this.state={children: []}
   }
   
   componentWillMount = () => {
