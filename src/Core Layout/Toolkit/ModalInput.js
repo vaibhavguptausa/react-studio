@@ -70,7 +70,7 @@ export class Popup extends React.Component {
       />
             </Modal.Body>
             <Modal.Footer>
-                {/* <Button onClick={this.onSave}>Save</Button> */}
+                <Button onClick={this.onSave}>Save</Button>
               Left click to close
             </Modal.Footer>
           </Modal>

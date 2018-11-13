@@ -14,7 +14,7 @@ const boxSource = {
 class NormalBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { modalState: false, height: 30, width: 40 };
+        this.state = { modalState: false, height: 50, width: 70, color: 'red', text:'' };
     }
     handleClick = (e) => {
         console.log(`hi`);
@@ -29,11 +29,13 @@ class NormalBox extends Component {
     handleClose = () => {
         this.setState({ modalState: false });
     }
-    handleChangeAttributes = (height, width) => {
-        this.setState({height: height, width: width });
+    handleChangeAttributes = (parameters) => {
+        console.log(parameters.text);
+        this.setState({height: parameters.height, width: parameters.width, color : parameters.color, text: parameters.text });
     }
 
     render() {
+        console.log(`text`,this.state.text);
         const {
             hideSourceOnDrag,
             left,
@@ -49,9 +51,9 @@ class NormalBox extends Component {
         //console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
         return (connectDragSource && connectDragSource(
             <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ marginTop: `${this.props.positionY}px`, padding: `${0}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
-                <div style={{ height: `${this.state.height}px`, width: `${this.state.width}px`, backgroundColor: `red` }}>
+                <div style={{ height: `${this.state.height}px`, width: `${this.state.width}px`, backgroundColor: `${this.state.color}` }}><h1>{this.state.text}</h1>
                 </div>
-                {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes}></Popup> : <div></div>}
+                {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} text={this.state.text} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
             </div>))
     }
 }
