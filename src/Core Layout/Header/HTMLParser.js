@@ -36,7 +36,6 @@ export const Parseit = () => {
             }
         },
     )
-  //  console.log(Object.keys(component));
-   // console.log(component['Header']);
+
     return component;
 }
