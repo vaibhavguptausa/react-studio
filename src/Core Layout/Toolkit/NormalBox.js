@@ -4,38 +4,66 @@ import { DragSource } from 'react-dnd';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { Popup } from './Modal';
 const boxSource = {
     beginDrag(props) {
-    const {Type, id, positionX, positionY } = props
-      return {Type,id, positionX, positionY};
+        const { Type, id, positionX, positionY } = props
+        return { Type, id, positionX, positionY };
     }
-  };
- class NormalBox extends Component {
-     constructor(props)
-     {
-         super(props);
-     }
-     
-      render() {
+};
+class NormalBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { modalState: false, height: 50, width: 70, color: 'red', text:'' };
+    }
+    handleClick = (e) => {
+        console.log(`hi`);
+       
+        if (e.type === 'click') {
+            this.setState({ modalState: true });
+          } else if (e.type === 'contextmenu') {
+            e.preventDefault();
+            this.setState({ modalState: !this.state.modalState });
+          }
+    }
+    handleClose = () => {
+        this.setState({ modalState: false });
+    }
+    handleChangeAttributes = (parameters) => {
+        console.log(parameters.text);
+        this.setState({height: parameters.height, width: parameters.width, color : parameters.color, text: parameters.text });
+    }
+
+    render() {
+        console.log(`text`,this.state.text);
         const {
-			hideSourceOnDrag,
-			left,
+            hideSourceOnDrag,
+            left,
             top,
             id,
-			connectDragSource,
-			isDragging,
-			children,
+            connectDragSource,
+            isDragging,
+            children,
         } = this.props;
         if (isDragging && hideSourceOnDrag) {
-			return null ;
-		}
-        console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
-        return 	(connectDragSource && connectDragSource(<div style={{marginTop:`${this.props.positionY}px`,padding: `${0}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit'}}> <div style={{height: `${30}px` , width: `${30}px`, backgroundColor: `red`   } }></div> </div> ))
+            return null;
         }
+        //console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
+        return (connectDragSource && connectDragSource(
+            <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ marginTop: `${this.props.positionY}px`, padding: `${0}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
+                <div style={{ height: `${this.state.height}px`, width: `${this.state.width}px`, backgroundColor: `${this.state.color}` }}><h1>{this.state.text}</h1>
+                </div>
+                {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} text={this.state.text} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
+            </div>))
     }
-   
+}
 
-    export default DragSource(ItemTypes.NORMALBOX, boxSource, (connect, monitor,Component) => ({
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
-      }))(NormalBox);   
+
+export default DragSource(ItemTypes.NORMALBOX, boxSource, (connect, monitor, Component) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+}))(NormalBox);
+
+
+
+

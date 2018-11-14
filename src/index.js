@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+
 let boxNum = 0;
 const incrementBoxNum=()=>{
     boxNum++;
