@@ -2,7 +2,7 @@
     import React, { Component } from 'react';
     import { ItemTypes } from './constants';
     import { DragSource } from 'react-dnd';
-    import { Popover, Tooltip, Button, Modal, OverlayTrigger, FormControl, ControlLabel } from 'react-bootstrap';
+    import {  FormControl, ControlLabel } from 'react-bootstrap';
     import {Popup} from './ModalInput';
     const inputSource = {
         beginDrag(props) {
@@ -17,7 +17,7 @@
              this.state = { modalState: false, height: 50, width: 70, color: 'red', text:'Heading', field:'', value: '' };
          }
          handleClick = (e) => {
-          console.log(`hi`);
+         // console.log(`hi`);
          
           if (e.type === 'click') {
               this.setState({ modalState: true });
@@ -30,7 +30,7 @@
           this.setState({ modalState: false });
       }
       handleChangeAttributes = (parameters) => {
-          console.log(parameters.text);
+        //  console.log(parameters.text);
           this.setState({height: parameters.height, width: parameters.width, color : parameters.color, text: parameters.text });
       }
   
@@ -47,7 +47,7 @@
             if (isDragging && hideSourceOnDrag) {
           return null ;
         }
-            console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
+           // console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
             return 	(connectDragSource && connectDragSource(
             <div style={{marginTop:`${this.props.positionY}px`,padding: `${5}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit',height: `${50}px` , width: `${200}px`, backgroundColor: `green`}}>
              <ControlLabel onClick={this.handleClick} onContextMenu={this.handleClick}>{this.state.field}</ControlLabel> 

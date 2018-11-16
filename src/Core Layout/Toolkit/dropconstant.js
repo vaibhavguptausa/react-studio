@@ -4,7 +4,7 @@ import {App} from '../../App';
 let boxNum = 0;
 const incrementBoxNum=()=>{
     boxNum++;
-    console.log(`number of boxes`, boxNum);
+   // console.log(`number of boxes`, boxNum);
 }
 export const  boxProp= {
     incrementBoxNum,

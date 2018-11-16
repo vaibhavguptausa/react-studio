@@ -11,8 +11,7 @@
     "react-dnd-html5-backend": "^5.0.1",
     "react-dom": "^16.6.0",
     "react-scripts": "2.0.5",
-    "reactstrap": "^6.5.0",
-    "write-json-file": "^3.0.2"
+    "reactstrap": "^6.5.0"
   },
   "scripts": {
     "start": "react-scripts start",

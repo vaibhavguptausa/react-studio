@@ -1,6 +1,7 @@
 import React from 'react';
 import { Popover, Tooltip, Button, Modal, OverlayTrigger, FormControl, ControlLabel } from 'react-bootstrap';
 import {SketchPicker} from 'react-color';
+import { children, addChild, modifyChild } from './constants';
 export class Popup extends React.Component {
     constructor(props, context) {
       super(props, context);

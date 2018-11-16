@@ -14,10 +14,10 @@ const moveBox=(id, positionX, positionY)=>{
   {
     if(children[i].id===id)
     {
-      console.log(`before`, children[i]);
+     // console.log(`before`, children[i]);
       children[i].x=positionX;
       children[i].y=positionY;
-      console.log(`after`, children[i]);
+    //  console.log(`after`, children[i]);
     }
 
   }
@@ -34,16 +34,16 @@ const Target = {
 			return
 		}
     const item = monitor.getItem()
-    console.log(`item`, item)
+   // console.log(`item`, item)
     if(item.Type==='BOX'){
-      console.log(`found a BOX`)
+     // console.log(`found a BOX`)
       return 
     }
 		const delta = monitor.getDifferenceFromInitialOffset() 
 		const positionX = Math.round(item.positionX + delta.x)
 		const positionY = Math.round(item.positionY + delta.y)
     if(item.Type==='NORMALBOX') {
-      console.log(`found a NORMALBOX`);
+   //   console.log(`found a NORMALBOX`);
       moveBox(item.id, positionX, positionY);
     }
 	},
@@ -68,7 +68,7 @@ class Droppable extends Component {
     if (this.props.position) {
       X = `${this.props.position.x}px`;
       Y = `${this.props.position.y}px`;
-     console.log(`drop position`, this.props.position);
+    // console.log(`drop position`, this.props.position);
     }
     if (this.props.didDrop && this.props.item == 'box' && !this.props.item.id) {
       
@@ -102,7 +102,7 @@ class Droppable extends Component {
   }
  
   render() {
-    console.log(`children`, children);
+   // console.log(`children`, children);
     const { connectDropTarget, isOver, didDrop, item, position } = this.props;
     var NormalBoxStatus = didDrop;
     

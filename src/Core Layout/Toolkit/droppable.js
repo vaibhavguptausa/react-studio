@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { ItemTypes } from './constants';
+import { ItemTypes, children, addChild, modifyChild } from './constants';
 import { DropTarget, DragLayer } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
-
-let numberBox = 0;
+import {userChildren, updateChildren} from './../../UserFiles/constant';
+let numberBox = 0; 
 let numberInput = 0;
-let children = [];
+//let children = [];
 let X = `${0}px`;
 let Y = `${0}px`;
 let childrenPosition = [];
@@ -16,10 +16,9 @@ const moveElement=(id, positionX, positionY)=>{
   {
     if(children[i].id===id)
     {
-      console.log(`before`, children[i]);
-      children[i]['x']=positionX;
-      children[i]['y']=positionY;
-      console.log(`after`, children[i]);
+     // console.log(`before`, children[i]);
+      modifyChild(id, positionX, positionY);
+     // console.log(`after`, children[i]);
     }
 
   }
@@ -37,7 +36,7 @@ const Target = {
 		}
     const item = monitor.getItem()
     var position= monitor.getClientOffset();
-    console.log(`childtype`, item.Type);
+   // console.log(`childtype`, item.Type);
    //var position1= monitor.getDifferenceFromInitialOffset()
     if (item.Type==='BOX') {
       
@@ -48,11 +47,15 @@ const Target = {
           "id" : children.length,
           "x": position.x,
           "y": position.y,
+          "color" : 'red',
+          'text' : '',
+          'height': 70,
+          'width' : 50,
           "Type":"NORMALBOX" 
         }
        // this.setState({position: this.props.position});
-       
-        children.push(tempChildStatus);
+       addChild(tempChildStatus);
+        //children.push(tempChildStatus);
       
      
     }
@@ -64,7 +67,7 @@ const Target = {
       moveElement(item.id, positionX, positionY);
     }
     else if(item.Type==='DRAGGABLEINPUT'){
-      console.log(`pos`,position);
+     // console.log(`pos`,position);
       var tempChildStatus={
         "id" : children.length,
         "x": position.x,
@@ -89,32 +92,19 @@ const Target = {
 class Droppable extends Component {
   constructor(props) {
     super(props);
-   // this.state={position: this.props.position};
   }
   
   componentWillMount = () => {
-    children = [];
+   // children = [];
     numberBox = 0;
     numberInput = 0;
     X = `${0}px`;
     Y = `${0}px`;
   }
   
-  // componentWillUpdate = () => {
-    
-  //   if (this.props.position) {
-  //     X = `${this.props.position.x}px`;
-  //     Y = `${this.props.position.y}px`;
-  //    console.log(`drop position`, this.props.position);
-  //   }
-    
-
-
-   
-  // }
- 
   render() {
-    console.log(`children`, children);
+    updateChildren(children);
+   // console.log(`children`, children);
     const { connectDropTarget, isOver, didDrop, item, position } = this.props;
     var NormalBoxStatus = didDrop;
     
