@@ -1,5 +1,6 @@
 import React from 'react';
 import './header.css';
+<<<<<<< HEAD
 import {children} from './../Toolkit/constants'
 //import {writeJsonFile} from 'write-json-file';
  const saveText=(text, filename)=>{
@@ -24,11 +25,41 @@ export default class Header extends React.Component {
 saveText( data, "data.json" );
 };
    
+=======
+import { Parseit } from './HTMLParser';
+
+export default class Header extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    downloadContent = (name, content) => {
+        var atag = document.createElement("a");
+        var file = new Blob([content], { type: 'text/plain' });
+        atag.href = URL.createObjectURL(file);
+        atag.download = name;
+        atag.click();
+    }
+
+    handleClick = () => {
+        var components = Parseit();
+        var arr = Object.keys(components);
+        console.log(`array`, arr);
+        for (var i = 0; i < arr.length; i++) {
+            this.downloadContent(`${arr[i]}.js`, components[`${arr[i]}`]);
+        }
+    }
+>>>>>>> d6761a86fba41178afe0f4456fc754df66e44ecb
     render() {
-        return(
+
+        return (
             <div className="main-header">
                 REACT STUDIO
+<<<<<<< HEAD
                 <button onClick={this.writetoJson}>Export</button>
+=======
+                <button onClick={this.handleClick}>EXPORT</button>
+>>>>>>> d6761a86fba41178afe0f4456fc754df66e44ecb
             </div>
         );
     }
