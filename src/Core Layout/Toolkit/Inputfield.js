@@ -1,4 +1,3 @@
-
     import React, { Component } from 'react';
     import { ItemTypes } from './constants';
     import { DragSource } from 'react-dnd';
@@ -14,11 +13,9 @@
          constructor(props)
          {
              super(props);
-             this.state = { modalState: false, height: 50, width: 70, color: 'red', text:'Heading', field:'', value: '' };
+             this.state = { modalState: false, height: 50, width: 70, color: 'yellow', type: 'text'};
          }
          handleClick = (e) => {
-         // console.log(`hi`);
-         
           if (e.type === 'click') {
               this.setState({ modalState: true });
             } else if (e.type === 'contextmenu') {
@@ -30,11 +27,12 @@
           this.setState({ modalState: false });
       }
       handleChangeAttributes = (parameters) => {
-        //  console.log(parameters.text);
-          this.setState({height: parameters.height, width: parameters.width, color : parameters.color, text: parameters.text });
+        console.log(`para` , parameters);
+          this.setState({height: parameters.height, width: parameters.width, color : parameters.color , type: parameters.type});
       }
   
           render() {
+            console.log(`input state`, this.state.type);
             const {
           hideSourceOnDrag,
           left,
@@ -47,17 +45,12 @@
             if (isDragging && hideSourceOnDrag) {
           return null ;
         }
-           // console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
             return 	(connectDragSource && connectDragSource(
-            <div style={{marginTop:`${this.props.positionY}px`,padding: `${5}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit',height: `${50}px` , width: `${200}px`, backgroundColor: `green`}}>
-             <ControlLabel onClick={this.handleClick} onContextMenu={this.handleClick}>{this.state.field}</ControlLabel> 
-            
-            <FormControl
-            id="text"
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
+            <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{position: "inherit", height: `${this.state.height}px` , width: `${this.state.width}px`,marginTop:`${this.props.positionY}px`,padding: `${5}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit',backgroundColor: `${this.state.color}`}}>
+            <input className="form-control"
+            type={this.state.type}
+            placeholder=""
+        
           />
             {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} text={this.state.text} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
              </div> ))

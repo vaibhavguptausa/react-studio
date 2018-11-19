@@ -6,7 +6,7 @@ export class Popup extends React.Component {
       super(props, context);
   
       this.state = {
-        height: this.props.height, width: this.props.width, color: this.props.color, text:this.props.text
+        height: this.props.height, width: this.props.width, color: this.props.color, type: this.props.type
       };
   
     }
@@ -20,6 +20,7 @@ export class Popup extends React.Component {
   
     handleChange=(e)=> {
         this.setState({ [e.target.id] : e.target.value });
+        console.log(`input`,e.target.value)
         this.props.onSave(this.state);
       }
       handleChangeComplete = (color) => {
@@ -37,15 +38,22 @@ export class Popup extends React.Component {
               <Modal.Title>Attributes</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <ControlLabel>Text</ControlLabel> 
+            <ControlLabel>Type</ControlLabel> 
             
-            <FormControl
-            id="text"
-            type="text"
-            value={this.state.text}
-            placeholder="Enter text"
+            <select
+            id="type"
+           value= {this.props.type}
+            placeholder=""
             onChange={this.handleChange}
-          />
+            className="form-control"
+          >
+          <option value="text">Text</option>
+          <option value="number">Number</option>
+          <option value="radio">Radio</option>
+          <option value="checkbox">Checkbox</option>
+          <option value="date">Date</option>
+          </select>  
+           
             <ControlLabel>Height</ControlLabel>
             <FormControl
             id="height"

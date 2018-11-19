@@ -3,27 +3,17 @@ import { ItemTypes, children, addChild, modifyChild } from './constants';
 import { DropTarget, DragLayer } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
-import {userChildren, updateChildren} from './../../UserFiles/constant';
-let numberBox = 0; 
-let numberInput = 0;
-//let children = [];
-let X = `${0}px`;
-let Y = `${0}px`;
-let childrenPosition = [];
+import {updateChildren} from './../../UserFiles/constant';
+
 
 const moveElement=(id, positionX, positionY)=>{
   for(var i=0;i<children.length;i++)
   {
     if(children[i].id===id)
     {
-     // console.log(`before`, children[i]);
       modifyChild(id, positionX, positionY);
-     // console.log(`after`, children[i]);
     }
-
   }
- 
-  
  }
 const Target = {
 	drop(
@@ -36,12 +26,8 @@ const Target = {
 		}
     const item = monitor.getItem()
     var position= monitor.getClientOffset();
-   // console.log(`childtype`, item.Type);
-   //var position1= monitor.getDifferenceFromInitialOffset()
-    if (item.Type==='BOX') {
-      
-      numberBox++;
-        
+   
+    if (item.Type==='BOX') {      
         console.log(`pos`,position);
         var tempChildStatus={
           "id" : children.length,
@@ -53,11 +39,7 @@ const Target = {
           'width' : 50,
           "Type":"NORMALBOX" 
         }
-       // this.setState({position: this.props.position});
        addChild(tempChildStatus);
-        //children.push(tempChildStatus);
-      
-     
     }
     else if(item.Type==='NORMALBOX')
     {
@@ -67,15 +49,12 @@ const Target = {
       moveElement(item.id, positionX, positionY);
     }
     else if(item.Type==='DRAGGABLEINPUT'){
-     // console.log(`pos`,position);
       var tempChildStatus={
         "id" : children.length,
         "x": position.x,
         "y": position.y,
         "Type":"INPUT" 
       }
-     // this.setState({position: this.props.position});
-     
       children.push(tempChildStatus);
     }
     else if(item.Type==='INPUT')
@@ -94,13 +73,7 @@ class Droppable extends Component {
     super(props);
   }
   
-  componentWillMount = () => {
-   // children = [];
-    numberBox = 0;
-    numberInput = 0;
-    X = `${0}px`;
-    Y = `${0}px`;
-  }
+  
   
   render() {
     updateChildren(children);
