@@ -1,7 +1,7 @@
 .toolkit-sidebar {
     width: 200px;
-    background-color: rgb(109, 207, 211);
-    border-right: 1px solid #e5e5e5;
+    background-color: #004983;
+    border-right: 1px solid #666;
     position: fixed;
     top: 78px;
     bottom: 0;

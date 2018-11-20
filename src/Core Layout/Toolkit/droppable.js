@@ -85,7 +85,7 @@ class Droppable extends Component {
           position: 'absolute',
           width: '100%',
           height: '100%',
-          backgroundColor: 'pink',
+          backgroundColor: '#f2f2f2',
           marginLeft: `${0}px`,
           marginTop: `${0}px`
 
