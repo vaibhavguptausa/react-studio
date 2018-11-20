@@ -32,7 +32,7 @@ export class Popup extends React.Component {
      
       if(this.props.modalState===true)
       return (
-        <div>
+        <div> 
           <Modal show={this.props.modalState} onHide={this.props.onClose}>
             <Modal.Header >
               <Modal.Title>Attributes</Modal.Title>

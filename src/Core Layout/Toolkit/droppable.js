@@ -53,6 +53,10 @@ const Target = {
         "id" : children.length,
         "x": position.x,
         "y": position.y,
+        "height" : 70,
+        "width" : 50,
+        "color": 'yellow',
+        "type" : 'text',
         "Type":"INPUT" 
       }
       children.push(tempChildStatus);

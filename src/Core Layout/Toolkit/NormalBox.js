@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { ItemTypes} from './constants';
-import {children, addChild, modifyChild, modifyChildAttributes } from './constants';
+import { modifyChildAttributes } from './constants';
 import { DragSource } from 'react-dnd';
-import PropTypes from 'prop-types';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+
 import { Popup } from './Modal';
 const boxSource = {
     beginDrag(props) {
@@ -50,7 +48,7 @@ class NormalBox extends Component {
         if (isDragging && hideSourceOnDrag) {
             return null;
         }
-        //console.log(`passed props to Box number-${this.props.id}`,this.props.positionX, this.props.positionY)
+      
         return (connectDragSource && connectDragSource(
             <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ marginTop: `${this.props.positionY}px`, padding: `${0}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
                 <div style={{ height: `${this.state.height}px`, width: `${this.state.width}px`, backgroundColor: `${this.state.color}` }}><h1>{this.state.text}</h1>
