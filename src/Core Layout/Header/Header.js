@@ -18,10 +18,10 @@ export default class Header extends React.Component {
         super(props);
     }
    writetoJson=()=>{
-       console.log(`children`, children);
+    console.log(`children`, children);
     const data= JSON.stringify(children); 
     console.log(`data`,data);
-saveText( data, "data.json" );
+    saveText( data, "data.json" );
 };
    
     render() {

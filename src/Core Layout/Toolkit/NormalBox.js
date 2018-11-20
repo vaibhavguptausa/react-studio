@@ -6,8 +6,8 @@ import { DragSource } from 'react-dnd';
 import { Popup } from './Modal';
 const boxSource = {
     beginDrag(props) {
-        const { Type, id, positionX, positionY } = props
-        return { Type, id, positionX, positionY };
+        const { type, id, positionX, positionY } = props
+        return { type, id, positionX, positionY };
     }
 };
 class NormalBox extends Component {

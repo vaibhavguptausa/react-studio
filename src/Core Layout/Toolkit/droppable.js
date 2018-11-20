@@ -3,72 +3,65 @@ import { ItemTypes, children, addChild, modifyChild } from './constants';
 import { DropTarget, DragLayer } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
-import {updateChildren} from './../../UserFiles/constant';
+import { updateChildren } from './../../UserFiles/constant';
+import NormalRadio from './radio/normalRadio';
+import NormalCheckbox from './checkbox/normalCheckbox';
+import NormalButton from './button/normalButton';
+import NormalDatepicker from './datepicker/normalDatepicker';
 
 
-const moveElement=(id, positionX, positionY)=>{
-  for(var i=0;i<children.length;i++)
-  {
-    if(children[i].id===id)
-    {
+const moveElement = (id, positionX, positionY) => {
+  for (var i = 0; i < children.length; i++) {
+    if (children[i].id === id) {
       modifyChild(id, positionX, positionY);
     }
   }
- }
+}
+const inputTypes = {
+  "BOX": "NORMALBOX",
+  "DRAGGABLEINPUT": "INPUT",
+  "RADIO": "NORMALRADIO",
+  "DATEPICKER": "NORMALDATEPICKER",
+  "CHECKBOX": "NORMALCHECKBOX",
+  "BUTTON": "NORMALBUTTON",
+}
 const Target = {
-	drop(
-		props,
-		monitor,
-		component,
-	) {
-		if (!component) {
-			return
-		}
-    const item = monitor.getItem()
-    var position= monitor.getClientOffset();
-   
-    if (item.Type==='BOX') {      
-        console.log(`pos`,position);
-        var tempChildStatus={
-          "id" : children.length,
-          "x": position.x,
-          "y": position.y,
-          "color" : 'red',
-          'text' : '',
-          'height': 70,
-          'width' : 50,
-          "Type":"NORMALBOX" 
-        }
-       addChild(tempChildStatus);
+  drop(
+    props,
+    monitor,
+    component,
+  ) {
+    if (!component) {
+      return
     }
-    else if(item.Type==='NORMALBOX')
-    {
-      const delta =position 
+    const item = monitor.getItem()
+    var position = monitor.getClientOffset();
+
+    
+
+    if (item.type === 'INPUT' || item.type === 'NORMALBOX' || item.type==='NORMALRADIO' || item.type==='NORMALBUTTON' || item.type==='NORMALCHECKBOX' || item.type==='NORMALDATEPICKER' ) {
+      const delta = position
       const positionX = (delta.x)
       const positionY = (delta.y)
       moveElement(item.id, positionX, positionY);
     }
-    else if(item.Type==='DRAGGABLEINPUT'){
-      var tempChildStatus={
-        "id" : children.length,
+    else
+    {
+      var tempChildStatus = {
+        "id": children.length,
         "x": position.x,
         "y": position.y,
-        "height" : 70,
-        "width" : 50,
-        "color": 'yellow',
-        "type" : 'text',
-        "Type":"INPUT" 
+        "height": 70,
+        "width": 50,
+        "color": 'red',
+        "text": '',
+        "type": inputTypes[item.type]
       }
-      children.push(tempChildStatus);
+  
+      //adds child to global constant
+      addChild(tempChildStatus);
     }
-    else if(item.Type==='INPUT')
-    {
-      const delta =position 
-      const positionX = (delta.x)
-      const positionY = (delta.y)
-      moveElement(item.id, positionX, positionY);
-    }
-	},
+  },
 }
 
 
@@ -76,15 +69,15 @@ class Droppable extends Component {
   constructor(props) {
     super(props);
   }
-  
-  
-  
+
+
+
   render() {
     updateChildren(children);
-   // console.log(`children`, children);
+    // console.log(`children`, children);
     const { connectDropTarget, isOver, didDrop, item, position } = this.props;
     var NormalBoxStatus = didDrop;
-    
+
     return (
 
       connectDropTarget(
@@ -97,12 +90,26 @@ class Droppable extends Component {
           marginTop: `${0}px`
 
         }}>
-          {children.map((child, index)=>{
-          if(child.Type==='NORMALBOX')
-         return  <NormalBox Type='NORMALBOX' id={index} positionX={child.x} positionY={child.y} />
-          else if(child.Type==='INPUT'){
-            return <InputField Type='INPUT' id={index} positionX={child.x} positionY={child.y} />
-          }
+          {children.map((child, index) => {
+            if (child.type === 'NORMALBOX')
+              return <NormalBox type='NORMALBOX' id={index} positionX={child.x} positionY={child.y} />
+            else if (child.type === 'INPUT') {
+              return <InputField type='INPUT' id={index} positionX={child.x} positionY={child.y} />
+             }
+            else if(child.type==='NORMALRADIO')
+             return <NormalRadio type="NORMALRADIO" id={index} positionX={child.x} positionY={child.y}></NormalRadio>  
+            else if(child.type==='NORMALCHECKBOX')
+            {
+              return <NormalCheckbox type="NORMALCHECKBOX" id={index} positionX={child.x} positionY={child.y} />
+            }
+            else if(child.type==='NORMALBUTTON')
+            {
+              return <NormalButton type="NORMALBUTTON" id={index} positionX={child.x} positionY={child.y}/>
+            }
+            else if(child.type==='NORMALDATEPICKER')
+            {
+              return <NormalDatepicker type="NORMALDATEPICKER" id={index} positionX={child.x} positionY={child.y} />
+            }
           })}
         </div>
       )
@@ -112,13 +119,13 @@ class Droppable extends Component {
   }
 }
 
-export default DropTarget([ItemTypes.BOX, ItemTypes.INPUT, ItemTypes.NORMALBOX, ItemTypes.DRAGGABLEINPUT], Target, (connect, monitor) => ({
+export default DropTarget(Object.values(ItemTypes), Target, (connect, monitor) => ({
   connectDropTarget: connect.dropTarget(),
   isOver: monitor.isOver(),
   didDrop: monitor.didDrop(),
   item: monitor.getItem(),
   itemType: monitor.getItemType(),
   position: monitor.getClientOffset(),
-  deltaPosition :monitor.getDifferenceFromInitialOffset()
-  
+  deltaPosition: monitor.getDifferenceFromInitialOffset()
+
 }))(Droppable);

@@ -5,8 +5,7 @@ export class Popup extends React.Component {
     constructor(props, context) {
       super(props, context);
   
-      this.state = 
-      {  height: this.props.height, width: this.props.width, color: this.props.color, type: this.props.type
+      this.state =  {  height: this.props.height, width: this.props.width, color: this.props.color, type: this.props.type
        };
   
     }
@@ -43,7 +42,7 @@ export class Popup extends React.Component {
             
             <select
             id="type"
-            value= "text"
+            value= {this.state.type}
             placeholder=""
             onChange={this.handleChange}
             className="form-control"

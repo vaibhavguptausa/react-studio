@@ -6,7 +6,7 @@
     top: 78px;
     bottom: 0;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
     padding-top: 10px;
     /* -webkit-transition: width .05s linear; */
     /* transition: width .05s linear; */

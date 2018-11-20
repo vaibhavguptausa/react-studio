@@ -2,7 +2,15 @@ export const ItemTypes = {
     BOX: 'box',
     INPUT: 'input',
     NORMALBOX: 'normalBox' ,
-    DRAGGABLEINPUT : 'draggableInput'
+    DRAGGABLEINPUT : 'draggableInput',
+    RADIO: 'radio',
+    NORMALRADIO: 'normalRadio',
+    CHECKBOX:'checkbox',
+    NORMALCHECKBOX : 'normalCheckbox',
+    BUTTON: 'button',
+    NORMALBUTTON: 'normalbutton',
+    DATEPICKER : 'datepicker',
+    NORMALDATEPICKER : 'normaldatepicker'
   };
 export let children =[];
 export const addChild=(child)=>{

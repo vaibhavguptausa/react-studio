@@ -4,8 +4,8 @@ import { DragSource } from 'react-dnd';
 
 const InputSource = {
   beginDrag(props) {
-    const {Type}= props;
-    return {Type};
+    const {type}= props;
+    return {type};
   }
   };
  
@@ -18,7 +18,7 @@ const InputSource = {
       }
       render() {
           const { isDragging, connectDragSource } = this.props;
-          return connectDragSource(<div style={{height: `${50}px` , width: `${200}px`, marginTop: `${200}px`, marginLeft: `${-30}px` ,backgroundColor: 'green'}}><input placeholder='write something'/></div>)  ;
+          return connectDragSource(<div style={{height: `${50}px` , width: `${200}px`, marginTop: `${100}px`, marginLeft: `${-30}px` ,backgroundColor: 'green'}}><input placeholder='write something'/></div>)  ;
         }
     }
    

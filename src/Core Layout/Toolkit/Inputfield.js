@@ -5,8 +5,8 @@
     import {Popup} from './ModalInput';
     const inputSource = {
         beginDrag(props) {
-        const {Type, id, positionX, positionY } = props
-          return {Type,id, positionX, positionY};
+        const {type, id, positionX, positionY } = props
+          return {type,id, positionX, positionY};
         }
       };
      class InputField extends Component {
@@ -46,13 +46,14 @@
           return null ;
         }
             return 	(connectDragSource && connectDragSource(
-            <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{position: "inherit", height: `${this.state.height}px` , width: `${this.state.width}px`,marginTop:`${this.props.positionY}px`,padding: `${5}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit',backgroundColor: `${this.state.color}`}}>
+            <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{position: "inherit",marginTop:`${this.props.positionY}px`,padding: `${5}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit'}}>
             <input className="form-control"
             type={this.state.type}
+            style={{ height: `${this.state.height}px` , width: `${this.state.width}px`}}
             placeholder=""
         
           />
-            {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} text={this.state.text} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
+            {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} type={this.state.type} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
              </div> ))
             }
         }

@@ -2,7 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
 import {userChildren} from './constant';
+const divStyle={
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'pink',
+  marginLeft: `${0}px`,
+  marginTop: `${0}px`
 
+}
 export class Body extends Component {
   constructor(props) {
     super(props);
@@ -10,20 +18,12 @@ export class Body extends Component {
   
   render() {
     return (
-        <div style={{
-          position: 'absolute',
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'pink',
-          marginLeft: `${0}px`,
-          marginTop: `${0}px`
-
-        }}>
+        <div style={divStyle}>
           {userChildren.map((child, index)=>{
-          if(child.Type==='NORMALBOX')
-         return  <NormalBox Type='NORMALBOX' id={index} />
-           else if(child.Type==='INPUT'){
-             return <InputField Type='INPUT' id={index} positionX={child.x} positionY={child.y} />
+          if(child.type==='NORMALBOX')
+         return  <NormalBox type='NORMALBOX' id={index} />
+           else if(child.type==='INPUT'){
+             return <InputField type='INPUT' id={index} positionX={child.x} positionY={child.y} />
           }
         })}
         </div>
