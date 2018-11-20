@@ -4,23 +4,17 @@ import { DragSource } from 'react-dnd';
 
 const buttonSource = {
   beginDrag(props) {
-    const {type}= props;
-    return {type};
+    const { type } = props;
+    return { type };
   }
-  };
- class Button extends Component {
-      constructor(props)
-      {
-          super(props);
-      }
-      render() {
-          const { isDragging, connectDragSource } = this.props;
-          return connectDragSource(<div style={{height: `${50}px` , width: `${200}px`, marginTop: `${100}px`, marginLeft: `${-30}px` ,backgroundColor: 'green'}}><button/></div>)  ;
-        }
-    }
-   
-      
-    
-    export default DragSource(ItemTypes.BUTTON, buttonSource, connect => ({
-        connectDragSource: connect.dragSource(),
-      }))(Button);
+};
+const Button = () => {
+  const { isDragging, connectDragSource } = this.props;
+  return connectDragSource(<div style={{ height: `${50}px`, width: `${200}px`, marginTop: `${100}px`, marginLeft: `${-30}px`, backgroundColor: 'green' }}><button /></div>);
+}
+
+
+
+export default DragSource(ItemTypes.BUTTON, buttonSource, connect => ({
+  connectDragSource: connect.dragSource(),
+}))(Button);

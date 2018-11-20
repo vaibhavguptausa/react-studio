@@ -15,7 +15,7 @@ const CheckboxSource = {
       }
       render() {
           const { isDragging, connectDragSource } = this.props;
-          return connectDragSource(<div style={{height: `${50}px` , width: `${200}px`, marginTop: `${100}px`, marginLeft: `${-30}px` ,backgroundColor: 'red'}}><input placeholder='write something' type="checkbox"/></div>)  ;
+          return connectDragSource(<div ><input placeholder='write something' type="checkbox"/></div>)  ;
         }
     }
    
