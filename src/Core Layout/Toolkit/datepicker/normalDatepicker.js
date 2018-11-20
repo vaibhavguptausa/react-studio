@@ -45,9 +45,9 @@ const NormalDatepickerSource = {
       return null ;
     }
         return 	(connectDragSource && connectDragSource(
-        <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{position: "inherit",marginTop:`${this.props.positionY}px`,padding: `${5}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit'}}>
+        <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{height: `${this.state.height}px` , backgroundColor: `${this.state.color}`, width: `${this.state.width}px` ,position: "inherit",marginTop:`${this.props.positionY}px`,padding: `${5}px` ,marginLeft:`${this.props.positionX}px`, position :'inherit'}}>
         <input className="form-control"
-        style={{ height: `${this.state.height}px` , width: `${this.state.width}px`}}
+        style={{ }}
         type="date" 
         placeholder=""
     

@@ -37,16 +37,14 @@ const Target = {
     const item = monitor.getItem()
     var position = monitor.getClientOffset();
 
-    
 
-    if (item.type === 'INPUT' || item.type === 'NORMALBOX' || item.type==='NORMALRADIO' || item.type==='NORMALBUTTON' || item.type==='NORMALCHECKBOX' || item.type==='NORMALDATEPICKER' ) {
+    if (Object.values(inputTypes).indexOf(item.type) > -1) {
       const delta = position
       const positionX = (delta.x)
       const positionY = (delta.y)
       moveElement(item.id, positionX, positionY);
     }
-    else
-    {
+    else {
       var tempChildStatus = {
         "id": children.length,
         "x": position.x,
@@ -57,7 +55,7 @@ const Target = {
         "text": '',
         "type": inputTypes[item.type]
       }
-  
+
       //adds child to global constant
       addChild(tempChildStatus);
     }
@@ -95,19 +93,16 @@ class Droppable extends Component {
               return <NormalBox type='NORMALBOX' id={index} positionX={child.x} positionY={child.y} />
             else if (child.type === 'INPUT') {
               return <InputField type='INPUT' id={index} positionX={child.x} positionY={child.y} />
-             }
-            else if(child.type==='NORMALRADIO')
-             return <NormalRadio type="NORMALRADIO" id={index} positionX={child.x} positionY={child.y}></NormalRadio>  
-            else if(child.type==='NORMALCHECKBOX')
-            {
+            }
+            else if (child.type === 'NORMALRADIO')
+              return <NormalRadio type="NORMALRADIO" id={index} positionX={child.x} positionY={child.y}></NormalRadio>
+            else if (child.type === 'NORMALCHECKBOX') {
               return <NormalCheckbox type="NORMALCHECKBOX" id={index} positionX={child.x} positionY={child.y} />
             }
-            else if(child.type==='NORMALBUTTON')
-            {
-              return <NormalButton type="NORMALBUTTON" id={index} positionX={child.x} positionY={child.y}/>
+            else if (child.type === 'NORMALBUTTON') {
+              return <NormalButton type="NORMALBUTTON" id={index} positionX={child.x} positionY={child.y} />
             }
-            else if(child.type==='NORMALDATEPICKER')
-            {
+            else if (child.type === 'NORMALDATEPICKER') {
               return <NormalDatepicker type="NORMALDATEPICKER" id={index} positionX={child.x} positionY={child.y} />
             }
           })}

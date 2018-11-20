@@ -5,15 +5,11 @@ export class NormalBox extends Component {
     constructor(props) {
         super(props);
     }
-    // handleChange=(e)=>{
-    //     const name= e.target.id ;
-
-    //     this.setState({[name]: e.target.value});
-    // }
     render() {
         const divStyles = {
             marginTop: `${userChildren[id].x}px`,
-            padding: `${0}px`, marginLeft: `${userChildren[id].y}px`,
+            padding: `${0}px`,
+             marginLeft: `${userChildren[id].y}px`,
             position: 'inherit',
             backgroundColor: `${userChildren[id].color}`,
             height: `${userChildren[id].height}`,
@@ -24,9 +20,8 @@ export class NormalBox extends Component {
             <div style={divStyles}>
                 <input className="form-control"
                     id="input"
-                    type={this.state.type}
+                    type="text"
                     placeholder=""
-                // onChange = {this.handleChange}
                 />
             </div>
         )
