@@ -27,7 +27,7 @@ export default class Header extends React.Component {
         return (
             <div className="main-header">
                 REACT STUDIO
-                <button onClick={this.writetoJson}>Export</button>
+                <button className="export-btn" onClick={this.writetoJson}>Export</button>
             </div>
         );
     }
