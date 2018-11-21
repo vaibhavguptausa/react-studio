@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ItemTypes } from './constants';
-import { modifyChildAttributes } from './constants';
+import { modifyChildAttributes, deleteChild } from './constants';
 import { DragSource } from 'react-dnd';
 import { Popup } from './Modal';
 const boxSource = {
@@ -12,7 +12,7 @@ const boxSource = {
 class NormalBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { modalState: false, height: 50, width: 70, color: 'red', text: '' };
+        this.state = { modalState: false, height: 50, width: 70, color: 'red', text: '', ifExists: true };
     }
     handleClick = (e) => {
         if (e.type === 'click') {
@@ -31,9 +31,13 @@ class NormalBox extends Component {
 
         this.setState({ height: parameters.height, width: parameters.width, color: parameters.color, text: parameters.text });
     }
+    handleDelete=()=>{
+        deleteChild(this.props.id);
+        this.setState({ifExists: false});
 
+    }
     render() {
-        modifyChildAttributes(this.props.id, this.state.height, this.state.width, this.state.color, this.state.text);
+      //  modifyChildAttributes(this.props.id, this.state.height, this.state.width, this.state.color, this.state.text);
         const {
             hideSourceOnDrag, 
             connectDragSource,
@@ -42,13 +46,16 @@ class NormalBox extends Component {
         if (isDragging && hideSourceOnDrag) {
             return null;
         }
-
+        if(this.state.ifExists){
         return (connectDragSource && connectDragSource(
             <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ height: `${this.state.height}px`, width: `${this.state.width}px`, backgroundColor: `${this.state.color}`, marginTop: `${this.props.positionY}px`, padding: `${0}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
                 <h1>{this.state.text}</h1>
 
-                {this.state.modalState ? <Popup modalState={this.state.modalState} id={this.props.id} onClose={this.handleClose} onSave={this.handleChangeAttributes} id={this.props.id} text={this.state.text} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
+                {this.state.modalState ? <Popup modalState={this.state.modalState} id={this.props.id} onDelete={this.handleDelete} onClose={this.handleClose} onSave={this.handleChangeAttributes} id={this.props.id} text={this.state.text} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
             </div>))
+            }
+            else
+            return null
     }
 }
 

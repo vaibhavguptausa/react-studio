@@ -66,7 +66,7 @@ class Droppable extends Component {
   render() {
     
     const { connectDropTarget } = this.props;
-
+    console.log(children);
     return (
 
       connectDropTarget(
