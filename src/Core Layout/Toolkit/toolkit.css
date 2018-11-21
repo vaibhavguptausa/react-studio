@@ -8,17 +8,12 @@
     height: 100%;
     overflow: auto;
     padding-top: 10px;
-    /* -webkit-transition: width .05s linear; */
-    /* transition: width .05s linear; */
-    /* -webkit-transform: translateZ(0) scale(1,1); */
     z-index: 10;
     
 }
-
 .main-menu > ul {
     margin: 7px -8px;
-}
-    
+}   
 .main-menu li {
     position: relative;
     display: block;

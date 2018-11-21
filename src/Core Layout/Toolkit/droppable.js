@@ -3,12 +3,6 @@ import { ItemTypes, children, addChild, modifyChild } from './constants';
 import { DropTarget, DragLayer } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
-import { updateChildren } from './../../UserFiles/constant';
-import NormalRadio from './radio/normalRadio';
-import NormalCheckbox from './checkbox/normalCheckbox';
-import NormalButton from './button/normalButton';
-import NormalDatepicker from './datepicker/normalDatepicker';
-
 
 const moveElement = (id, positionX, positionY) => {
   for (var i = 0; i < children.length; i++) {
@@ -53,10 +47,9 @@ const Target = {
         "width": 50,
         "color": 'red',
         "text": '',
-        "type": inputTypes[item.type]
+        "type": inputTypes[item.type],
+        "inputType": item.inputType,
       }
-
-      //adds child to global constant
       addChild(tempChildStatus);
     }
   },
@@ -71,10 +64,8 @@ class Droppable extends Component {
 
 
   render() {
-    updateChildren(children);
-    // console.log(`children`, children);
-    const { connectDropTarget, isOver, didDrop, item, position } = this.props;
-    var NormalBoxStatus = didDrop;
+    
+    const { connectDropTarget } = this.props;
 
     return (
 
@@ -92,24 +83,12 @@ class Droppable extends Component {
             if (child.type === 'NORMALBOX')
               return <NormalBox type='NORMALBOX' id={index} positionX={child.x} positionY={child.y} />
             else if (child.type === 'INPUT') {
-              return <InputField type='INPUT' id={index} positionX={child.x} positionY={child.y} />
-            }
-            else if (child.type === 'NORMALRADIO')
-              return <NormalRadio type="NORMALRADIO" id={index} positionX={child.x} positionY={child.y}></NormalRadio>
-            else if (child.type === 'NORMALCHECKBOX') {
-              return <NormalCheckbox type="NORMALCHECKBOX" id={index} positionX={child.x} positionY={child.y} />
-            }
-            else if (child.type === 'NORMALBUTTON') {
-              return <NormalButton type="NORMALBUTTON" id={index} positionX={child.x} positionY={child.y} />
-            }
-            else if (child.type === 'NORMALDATEPICKER') {
-              return <NormalDatepicker type="NORMALDATEPICKER" id={index} positionX={child.x} positionY={child.y} />
+              console.log(`passed props to input field`, child.inputType)
+              return <InputField type='INPUT' inputType={child.inputType} id={index} positionX={child.x} positionY={child.y} />
             }
           })}
         </div>
       )
-
-
     );
   }
 }

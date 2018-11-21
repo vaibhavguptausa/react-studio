@@ -4,8 +4,8 @@ import { DragSource } from 'react-dnd';
 
 const boxSource = {
     beginDrag(props) {
-      const {type}= props;
-      return {type};
+      const {type, inputType}= props;
+      return {type, inputType};
     }
   };
  
