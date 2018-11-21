@@ -17,7 +17,7 @@ const boxSource = {
       }
       render() {
           const { isDragging, connectDragSource } = this.props;
-          return connectDragSource(<div style={{height: `${100}px` ,marginTop:`${10}px`, width: `${100}px`, backgroundColor: `red`, position: 'absolute', paddingTop:   `${10}px`, zIndex:`$20`}}> </div>)  ;
+          return connectDragSource(<div style={{height: `${70}px`, marginTop:`${30}px`, marginBottom: `${30}px`, marginLeft: `${25}px`, width: `${70}px`, backgroundColor: `red`, position: 'relative', paddingTop: `${10}px`, zIndex:`$20`}}> </div>)  ;
         }
     }
    
