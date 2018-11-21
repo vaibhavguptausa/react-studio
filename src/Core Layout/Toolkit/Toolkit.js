@@ -17,7 +17,7 @@ export default class Toolkit extends React.Component {
         return (
             <ul className="toolkit-sidebar">
 
-                <Box type='BOX' inputType="div"/>
+                <Box type='BOX' inputType="div" />
                 {Object.keys(draggables).map((dg, ind) => (
                     console.log(`key`, dg),
                     console.log(`value`, draggables[dg]),

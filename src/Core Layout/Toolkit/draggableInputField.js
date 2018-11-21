@@ -4,19 +4,20 @@ import { DragSource } from 'react-dnd';
 
 const InputSource = {
   beginDrag(props) {
-    const {type, inputType}= props;
-    return {type, inputType};
+    const { type, inputType } = props;
+    return { type, inputType };
   }
-  };
- class DraggableInputField extends Component {
-      
-      render() {
-       
-          const { isDragging, connectDragSource,type } = this.props;
-          return connectDragSource(<div style={{height: `${50}px` , width: `${200}px`, marginTop: `${15}px`, marginLeft: `${-30}px` }}><input type={this.props.inputType} placeholder='write something'/></div>)  ;
-        }
-    }    
-    
-    export default DragSource(ItemTypes.DRAGGABLEINPUT, InputSource, connect => ({
-        connectDragSource: connect.dragSource(),
-      }))(DraggableInputField);
+};
+
+class DraggableInputField extends Component {
+
+  render() {
+    const { isDragging, connectDragSource, type } = this.props;
+    return connectDragSource(<div style={{ height: `${50}px`, width: `${200}px`, marginTop: `${15}px`, marginLeft: `${-30}px` }}>
+    <input type={this.props.inputType} placeholder='write something' /></div>);
+  }
+}
+
+export default DragSource(ItemTypes.DRAGGABLEINPUT, InputSource, connect => ({
+  connectDragSource: connect.dragSource(),
+}))(DraggableInputField);

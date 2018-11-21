@@ -1,11 +1,10 @@
+import { children } from './../Toolkit/constants'
 
-import {children} from './../Toolkit/constants'
+const createStyleString = () => {
+    var str = "";
 
-const createStyleString=()=>{
-    var str="";
-  
-    children.map((child, id)=>{
-        str=str+`
+    children.map((child, id) => {
+        str = str + `
         const divstyle${id}=
         {
          marginTop: "${child.y}px",
@@ -18,59 +17,52 @@ const createStyleString=()=>{
      };
      `
     })
-    console.log(`stylestring`,str);
+    console.log(`stylestring`, str);
     return str;
 }
-const createComponentString=()=>{
-    var str="";
-   
-    children.map((child, id)=>{
-        if(child.type==="NORMALBOX")
-        {
-            str=str+`
+
+const createComponentString = () => {
+    var str = "";
+
+    children.map((child, id) => {
+        if (child.type === "NORMALBOX") {
+            str = str + `
             <div style={divstyle${id}}>
             <div><h1>${child.text}</h1>
             </div>
-            </div>
-        `
+            </div>`
         }
-        else if(child.type==="INPUT")
-        {
-            str=str+`
+        else if (child.type === "INPUT") {
+            str = str + `
             <div style={divstyle${id}}>
                 <input className="form-control"
                     id="input"
                     type="${child.inputType}"
                     placeholder=""
-
                 />
-            </div>
-            `
+            </div>`
         }
-
     })
+
     console.log(`componentstring`, str);
     return str;
-
 }
-export const htmlString =()=>{ 
-    var str=
-`import React, { Component, PropTypes } from 'react';
-const divstyle={
+
+export const htmlString = () => {
+    var str =
+        `import React, { Component, PropTypes } from 'react';
+    const divstyle={
     position: 'absolute',
     width: '100%',
     height: '100%',
     backgroundColor: 'none',
     marginLeft: "${0}px",
     marginTop: "${0}px"
-  
-  }
-  ;
-  `
-  +
-  createStyleString()
-  +
-  `
+  };`
+        +
+        createStyleString()
+        +
+        `
 export class Body extends Component {
     constructor(props) {
       super(props);
@@ -78,15 +70,13 @@ export class Body extends Component {
     render() {
         return(
             <div style={divstyle}>`
-        
         +
-            createComponentString()
-            +
-            `
+        createComponentString()
+        +
+        `
             </div>
         )
     }
-} ;
-`
-return str;
+} ;`
+    return str;
 }
