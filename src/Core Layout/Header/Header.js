@@ -1,7 +1,8 @@
 import React from 'react';
 import './header.css';
-import {htmlString} from './string';
- const saveText=(text, filename)=>{
+import { htmlString } from './string';
+
+const saveText = (text, filename) => {
     var a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-u,' + encodeURIComponent(text));
     a.setAttribute('download', filename);
@@ -15,16 +16,11 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
     }
-   writetoJson=()=>{
-    var str= htmlString();
-    console.log(`htmlpart`,str);
-    saveText( str, "component.js" );
-};
-   
-    
-
-    
-    
+    writetoJson = () => {
+        var str = htmlString();
+        console.log(`htmlpart`, str);
+        saveText(str, "component.js");
+    };
 
     render() {
         return (

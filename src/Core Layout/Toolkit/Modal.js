@@ -1,35 +1,35 @@
 import React from 'react';
-import {Button, Modal, FormControl, ControlLabel } from 'react-bootstrap';
-import {SketchPicker} from 'react-color';
-import { deleteChild } from './constants';
+import { Button, Modal, FormControl, ControlLabel } from 'react-bootstrap';
+import { SketchPicker } from 'react-color';
+
 export class Popup extends React.Component {
-    constructor(props, context) {
-      super(props, context);
-  
-      this.state = {
-        height: this.props.height, width: this.props.width, color: this.props.color, text:this.props.text
-      };
-  
-    }
-  onSave=()=>{
-    
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      height: this.props.height, width: this.props.width, color: this.props.color, text: this.props.text
+    };
+  }
+
+  onSave = () => {
     this.props.onClose();
   }
-    handleChange=(e)=> {
-        this.setState({ [e.target.id] : e.target.value });
-        this.props.onSave(this.state);
-      }
-      handleChangeComplete = (color) => {
-        this.setState({ color: color.hex });
-        this.props.onSave(this.state);
-      };
-      // deleteChild=()=>{
-      //   deleteChild(this.props.id);
-      // }
-  
-    render() {
-     
-      if(this.props.modalState===true)
+
+  handleChange = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
+    this.props.onSave(this.state);
+  }
+
+  handleChangeComplete = (color) => {
+    this.setState({ color: color.hex });
+    this.props.onSave(this.state);
+  };
+
+  // deleteChild=()=>{
+  //   deleteChild(this.props.id);
+  // }
+
+  render() {
+    if (this.props.modalState === true)
       return (
         <div>
           <Modal show={this.props.modalState} onHide={this.props.onClose}>
@@ -37,46 +37,46 @@ export class Popup extends React.Component {
               <Modal.Title>Attributes</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <ControlLabel>Text</ControlLabel> 
-            
-            <FormControl
-            id="text"
-            type="text"
-            value={this.state.text}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-            <ControlLabel>Height</ControlLabel>
-            <FormControl
-            id="height"
-            type="number"
-            value={this.state.height}
-            placeholder="Enter width"
-            onChange={this.handleChange}
-          />
-            <ControlLabel>Width</ControlLabel> 
-            
-            <FormControl
-            id="width"
-            type="number"
-            value={this.state.width}
-            placeholder="Enter width"
-            onChange={this.handleChange}
-          />
-        <ControlLabel>Color</ControlLabel> 
-          <SketchPicker
-        color={ this.state.color }
-        onChangeComplete={ this.handleChangeComplete }
-      />
+              <ControlLabel>Text</ControlLabel>
+
+              <FormControl
+                id="text"
+                type="text"
+                value={this.state.text}
+                placeholder="Enter text"
+                onChange={this.handleChange}
+              />
+              <ControlLabel>Height</ControlLabel>
+              <FormControl
+                id="height"
+                type="number"
+                value={this.state.height}
+                placeholder="Enter width"
+                onChange={this.handleChange}
+              />
+              <ControlLabel>Width</ControlLabel>
+
+              <FormControl
+                id="width"
+                type="number"
+                value={this.state.width}
+                placeholder="Enter width"
+                onChange={this.handleChange}
+              />
+              <ControlLabel>Color</ControlLabel>
+              <SketchPicker
+                color={this.state.color}
+                onChangeComplete={this.handleChangeComplete}
+              />
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={this.props.onDelete}>delete item</Button>
-              Left click to close
+              <Button onClick={this.props.onDelete}>Delete item</Button>
+              Right click to close
             </Modal.Footer>
           </Modal>
         </div>
       );
-      else
+    else
       return (<div></div>)
-    }
+  }
 }

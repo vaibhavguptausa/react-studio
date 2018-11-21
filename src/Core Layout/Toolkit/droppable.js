@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { ItemTypes, children, addChild, modifyChild } from './constants';
-import { DropTarget, DragLayer } from 'react-dnd';
+import { DropTarget } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
 
@@ -11,6 +11,7 @@ const moveElement = (id, positionX, positionY) => {
     }
   }
 }
+
 const inputTypes = {
   "BOX": "NORMALBOX",
   "DRAGGABLEINPUT": "INPUT",
@@ -19,6 +20,7 @@ const inputTypes = {
   "CHECKBOX": "NORMALCHECKBOX",
   "BUTTON": "NORMALBUTTON",
 }
+
 const Target = {
   drop(
     props,
@@ -30,7 +32,6 @@ const Target = {
     }
     const item = monitor.getItem()
     var position = monitor.getClientOffset();
-
 
     if (Object.values(inputTypes).indexOf(item.type) > -1) {
       const delta = position
@@ -55,20 +56,15 @@ const Target = {
   },
 }
 
-
 class Droppable extends Component {
   constructor(props) {
     super(props);
   }
 
-
-
   render() {
-    
     const { connectDropTarget } = this.props;
     console.log(children);
     return (
-
       connectDropTarget(
         <div style={{
           position: 'absolute',
@@ -77,7 +73,6 @@ class Droppable extends Component {
           backgroundColor: '#f2f2f2',
           marginLeft: `${0}px`,
           marginTop: `${0}px`
-
         }}>
           {children.map((child, index) => {
             if (child.type === 'NORMALBOX')
@@ -101,5 +96,4 @@ export default DropTarget(Object.values(ItemTypes), Target, (connect, monitor) =
   itemType: monitor.getItemType(),
   position: monitor.getClientOffset(),
   deltaPosition: monitor.getDifferenceFromInitialOffset()
-
 }))(Droppable);

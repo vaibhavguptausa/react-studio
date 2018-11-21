@@ -6,21 +6,20 @@ import { DragDropContext } from 'react-dnd';
 import Droppable from './Core Layout/Toolkit/droppable';
 import HTML5Backend from 'react-dnd-html5-backend';
 
- export class App extends React.Component {
-   constructor(props){
-     super(props);
-     
-   } 
+export class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    
     return (
       <div className="App">
         <Header />
         <Toolkit />
         <Droppable ></Droppable>
-        
       </div>
     );
   }
 }
+
 export default DragDropContext(HTML5Backend)(App);
