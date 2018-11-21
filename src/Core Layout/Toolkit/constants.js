@@ -25,7 +25,6 @@ export const modifyChildAttributes=(id,height, width, color, text)=>{
   children[id].width=width;
   children[id].color= color;
   children[id].text=text;
-
 }
 export const deleteChild=(id)=>{
   let newChildren=[];
