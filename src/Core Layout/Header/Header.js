@@ -1,8 +1,6 @@
 import React from 'react';
 import './header.css';
-import {children} from './../Toolkit/constants'
 import {htmlString} from './string';
-//import {writeJsonFile} from 'write-json-file';
  const saveText=(text, filename)=>{
     var a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-u,'+encodeURIComponent(text));
@@ -19,10 +17,6 @@ export default class Header extends React.Component {
         super(props);
     }
    writetoJson=()=>{
-    // console.log(`children`, children);
-    // const data= JSON.stringify(children); 
-    // console.log(`data`,data);
-    // 
     var str= htmlString();
     console.log(`htmlpart`,str);
     saveText( str, "component.js" );

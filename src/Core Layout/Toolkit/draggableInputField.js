@@ -4,8 +4,8 @@ import { DragSource } from 'react-dnd';
 
 const InputSource = {
   beginDrag(props) {
-    const {type}= props;
-    return {type};
+    const {type, inputType}= props;
+    return {type, inputType};
   }
   };
  class DraggableInputField extends Component {
@@ -13,11 +13,9 @@ const InputSource = {
       render() {
        
           const { isDragging, connectDragSource,type } = this.props;
-          return connectDragSource(<div style={{height: `${50}px` , width: `${200}px`, marginTop: `${100}px`, marginLeft: `${-30}px` }}><input type={this.props.type} placeholder='write something'/></div>)  ;
+          return connectDragSource(<div style={{height: `${50}px` , width: `${200}px`, marginTop: `${100}px`, marginLeft: `${-30}px` }}><input type={this.props.inputType} placeholder='write something'/></div>)  ;
         }
-    }
-   
-      
+    }    
     
     export default DragSource(ItemTypes.DRAGGABLEINPUT, InputSource, connect => ({
         connectDragSource: connect.dragSource(),

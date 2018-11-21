@@ -1,7 +1,7 @@
 import React from 'react';
-import { Popover, Tooltip, Button, Modal, OverlayTrigger, FormControl, ControlLabel } from 'react-bootstrap';
+import {Button, Modal, FormControl, ControlLabel } from 'react-bootstrap';
 import {SketchPicker} from 'react-color';
-import { children, addChild, modifyChild } from './constants';
+import { deleteChild } from './constants';
 export class Popup extends React.Component {
     constructor(props, context) {
       super(props, context);
@@ -11,14 +11,10 @@ export class Popup extends React.Component {
       };
   
     }
-   
-    
-    
   onSave=()=>{
     
     this.props.onClose();
   }
-  
     handleChange=(e)=> {
         this.setState({ [e.target.id] : e.target.value });
         this.props.onSave(this.state);
@@ -27,7 +23,9 @@ export class Popup extends React.Component {
         this.setState({ color: color.hex });
         this.props.onSave(this.state);
       };
-    
+      deleteChild=()=>{
+        deleteChild(this.props.id);
+      }  
     render() {
      
       if(this.props.modalState===true)
@@ -71,7 +69,7 @@ export class Popup extends React.Component {
       />
             </Modal.Body>
             <Modal.Footer>
-                {/* <Button onClick={this.onSave}>Save</Button> */}
+                <Button onClick={this.deleteChild}>delete item</Button>
               Left click to close
             </Modal.Footer>
           </Modal>
