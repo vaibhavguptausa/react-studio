@@ -3,6 +3,7 @@ import { ItemTypes, children, addChild, modifyChild } from './constants';
 import { DropTarget } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
+import './droppable.css';
 
 const moveElement = (id, positionX, positionY) => {
   for (var i = 0; i < children.length; i++) {
@@ -66,7 +67,7 @@ class Droppable extends Component {
     console.log(children);
     return (
       connectDropTarget(
-        <div style={{
+        <div className=".droppable" style={{
           position: 'absolute',
           width: '100%',
           height: '100%',
