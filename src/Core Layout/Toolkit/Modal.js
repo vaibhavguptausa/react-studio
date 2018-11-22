@@ -24,10 +24,6 @@ export class Popup extends React.Component {
     this.props.onSave(this.state);
   };
 
-  // deleteChild=()=>{
-  //   deleteChild(this.props.id);
-  // }
-
   render() {
     if (this.props.modalState === true)
       return (

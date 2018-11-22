@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ItemTypes } from './constants';
+import { ItemTypes, modifyChildAttributes } from './constants';
 import { DragSource } from 'react-dnd';
 import { Popup } from './ModalInput';
 
@@ -13,7 +13,7 @@ const inputSource = {
 class InputField extends Component {
   constructor(props) {
     super(props);
-    this.state = { modalState: false, height: 50, width: 100, color: 'yellow', type: this.props.inputType };
+    this.state = { modalState: false, height: 50, width: 100, color: 'yellow', type: this.props.inputType, ifExists: this.props.status };
   }
 
   handleClick = (e) => {
@@ -33,8 +33,15 @@ class InputField extends Component {
     console.log(`para`, parameters);
     this.setState({ height: parameters.height, width: parameters.width, color: parameters.color, type: parameters.type });
   }
+  handleDelete = () => {
+    // deleteChild(this.props.id);
+    console.log(`id`, this.props.id)
+    this.setState({ ifExists: false });
+
+  }
 
   render() {
+    modifyChildAttributes(this.props.id, this.state.height, this.state.width, this.state.color, this.state.text, this.state.ifExists);
     const {
       hideSourceOnDrag,
       left,
@@ -49,15 +56,20 @@ class InputField extends Component {
       return null;
     }
 
-    return (connectDragSource && connectDragSource(
-      <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ position: "inherit", height: `${this.state.height}px`, width: `${this.state.width}px`, marginTop: `${this.props.positionY}px`, padding: `${5}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
-        <input className="form-control"
-          type={this.props.inputType}
-          style={{ height: `${100}%`, width: `${100}%` }}
-          placeholder=""
-        />
-        {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} type={this.state.type} height={this.state.height} width={this.state.width} color={this.state.color} id={this.props.id}></Popup> : <div></div>}
-      </div>))
+    if (this.state.ifExists) {
+      return (connectDragSource && connectDragSource(
+        <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ position: "inherit", height: `${this.state.height}px`, width: `${this.state.width}px`, marginTop: `${this.props.positionY}px`, padding: `${5}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
+          <input className={this.props.inputType!=='button'?"form-control":"btn btn-default"}
+            type={this.props.inputType}
+            style={{ height: `${100}%`, width: `${100}%` }}
+            placeholder=""
+          />
+          {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} type={this.state.type} height={this.state.height} width={this.state.width} onDelete={this.handleDelete} color={this.state.color} id={this.props.id}></Popup> : <div></div>}
+        </div>))
+    }
+    else {
+      return null;
+    }
   }
 }
 

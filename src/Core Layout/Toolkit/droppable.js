@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ItemTypes, children, addChild, modifyChild } from './constants';
+import { ItemTypes, children, addChild, modifyChild, counter, incrementCounter } from './constants';
 import { DropTarget } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
@@ -16,10 +16,7 @@ const moveElement = (id, positionX, positionY) => {
 const inputTypes = {
   "BOX": "NORMALBOX",
   "DRAGGABLEINPUT": "INPUT",
-  "RADIO": "NORMALRADIO",
-  "DATEPICKER": "NORMALDATEPICKER",
-  "CHECKBOX": "NORMALCHECKBOX",
-  "BUTTON": "NORMALBUTTON",
+  
 }
 
 const Target = {
@@ -47,12 +44,14 @@ const Target = {
         "y": position.y,
         "height": 70,
         "width": 50,
-        "color": 'red',
+        "color": "lightblue",
         "text": '',
         "type": inputTypes[item.type],
         "inputType": item.inputType,
+        "ifRender" : true, 
       }
       addChild(tempChildStatus);
+      incrementCounter();
     }
   },
 }
@@ -64,7 +63,7 @@ class Droppable extends Component {
 
   render() {
     const { connectDropTarget } = this.props;
-    console.log(children);
+    console.log(`children`,children)
     return (
       connectDropTarget(
         <div className=".droppable" style={{
@@ -76,11 +75,13 @@ class Droppable extends Component {
           marginTop: `${0}px`
         }}>
           {children.map((child, index) => {
-            if (child.type === 'NORMALBOX')
-              return <NormalBox type='NORMALBOX' id={index} positionX={child.x} positionY={child.y} />
-            else if (child.type === 'INPUT') {
+            
+            debugger
+            if (child.type === 'NORMALBOX' && child.ifRender===true)
+              return <NormalBox type='NORMALBOX' id={child.id} positionX={child.x} positionY={child.y} status={child.ifRender} />
+            else if (child.type === 'INPUT' && child.ifRender===true) {
               console.log(`passed props to input field`, child.inputType)
-              return <InputField type='INPUT' inputType={child.inputType} id={index} positionX={child.x} positionY={child.y} />
+              return <InputField type='INPUT' inputType={child.inputType}  id={child.id} positionX={child.x} positionY={child.y} status={child.ifRender} />
             }
           })}
         </div>

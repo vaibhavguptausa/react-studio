@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ItemTypes } from './constants';
-import { deleteChild } from './constants';
+import { deleteChild,modifyChildAttributes } from './constants';
 import { DragSource } from 'react-dnd';
 import { Popup } from './Modal';
 
@@ -14,7 +14,7 @@ const boxSource = {
 class NormalBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { modalState: false, height: 50, width: 70, color: 'lightBlue', text: '', ifExists: true };
+        this.state = { modalState: false, height: 50, width: 70, color: 'lightBlue', text: '', ifExists: this.props.status };
     }
 
     handleClick = (e) => {
@@ -32,15 +32,18 @@ class NormalBox extends Component {
 
     handleChangeAttributes = (parameters) => {
         this.setState({ height: parameters.height, width: parameters.width, color: parameters.color, text: parameters.text });
+        //modifyChildAttributes(this.props.id,parameters.height, parameters.width, parameters.color,parameters.text);
     }
 
     handleDelete = () => {
-        deleteChild(this.props.id);
+        // deleteChild(this.props.id);
+        console.log(`id`, this.props.id)
         this.setState({ ifExists: false });
+    
     }
 
     render() {
-        //  modifyChildAttributes(this.props.id, this.state.height, this.state.width, this.state.color, this.state.text);
+        modifyChildAttributes(this.props.id, this.state.height, this.state.width, this.state.color, this.state.text, this.state.ifExists);
         const {
             hideSourceOnDrag,
             connectDragSource,

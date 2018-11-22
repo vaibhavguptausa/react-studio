@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.css';
-import { htmlString } from './string';
+import { htmlString ,createStyleClassesString} from './string';
 
 const saveText = (text, filename) => {
     var a = document.createElement('a');
@@ -17,9 +17,11 @@ export default class Header extends React.Component {
         super(props);
     }
     writetoJson = () => {
-        var str = htmlString();
-        console.log(`htmlpart`, str);
-        saveText(str, "component.js");
+        var strComponent = htmlString();
+        var strStyle = createStyleClassesString();
+        // console.log(`htmlpart`, str);
+        saveText(strComponent, "component.js");
+        saveText(strStyle, 'component.css')
     };
 
     render() {

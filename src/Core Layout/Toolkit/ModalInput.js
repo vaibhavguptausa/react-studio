@@ -27,11 +27,12 @@ export class Popup extends React.Component {
     this.props.onSave(this.state);
   };
 
-  deleteChild = () => {
-    deleteChild(this.props.id);
-  }
+  // deleteChild = () => {
+  //   deleteChild(this.props.id);
+  // }
 
   render() {
+    
     if (this.props.modalState === true)
       return (
         <div>
@@ -81,7 +82,7 @@ export class Popup extends React.Component {
               />
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.deleteChild}>delete item</Button>
+              <Button onClick={this.props.onDelete}>delete item</Button>
               Right click to close
             </Modal.Footer>
           </Modal>

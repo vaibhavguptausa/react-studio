@@ -14,7 +14,10 @@ export const ItemTypes = {
 };
 
 export let children = [];
-
+export var counter = 0;
+export const incrementCounter = () => {
+  counter = counter + 1;
+}
 export const addChild = (child) => {
   children.push(child);
 }
@@ -24,24 +27,24 @@ export const modifyChild = (id, positionX, positionY) => {
   children[id]['y'] = positionY;
 }
 
-export const modifyChildAttributes = (id, height, width, color, text) => {
+export const modifyChildAttributes = (id, height, width, color, text, ifRender) => {
   children[id].height = height;
   children[id].width = width;
   children[id].color = color;
   children[id].text = text;
+  children[id].ifRender= ifRender ;
 }
 
 export const deleteChild = (id) => {
-  let newChildren = [];
-  for (var i = 0; i < children.length; i++) {
-    if (children[i].id !== id) {
-      newChildren.push(children[i]);
-    }
-  }
 
-  console.log(`newChildren`, newChildren);
-  children = [];
-  for (var i = 0; i < newChildren.length; i++) {
-    children.push(newChildren[i]);
-  }
+  debugger
+  children = children.filter((ch, i) => {
+    if (ch.id != id) {
+      ch.id = ch.id > id ? ch.id - 1 : ch.id
+      return ch
+    }
+  })
+  debugger
+  console.log(`children`, children);
+
 }
