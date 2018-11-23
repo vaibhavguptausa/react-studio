@@ -3,7 +3,7 @@ import { ItemTypes, children, addChild, modifyChild, counter, incrementCounter }
 import { DropTarget } from 'react-dnd';
 import NormalBox from './NormalBox';
 import InputField from './Inputfield';
-
+import {attributesElementsNormalBox,attributesElementsInputfield} from './config';
 const moveElement = (id, positionX, positionY) => {
   for (var i = 0; i < children.length; i++) {
     if (children[i].id === id) {
@@ -29,7 +29,7 @@ const Target = {
     }
     const item = monitor.getItem()
     var position = monitor.getClientOffset();
-
+   
     if (Object.values(inputTypes).indexOf(item.type) > -1) {
       const delta = position
       const positionX = (delta.x)
@@ -37,18 +37,24 @@ const Target = {
       moveElement(item.id, positionX, positionY);
     }
     else {
+      var attribute;
+      if(item.type === 'NORMALBOX')
+       {
+        
+         attribute=Object.assign({},attributesElementsNormalBox) 
+        }
+        else{
+          attribute=Object.assign({},attributesElementsInputfield) 
+        }
       var tempChildStatus = {
         "id": children.length,
         "x": position.x,
         "y": position.y,
-        "height": 70,
-        "width": 50,
-        "color": "lightblue",
-        "text": '',
         "type": inputTypes[item.type],
         "inputType": item.inputType,
         "ifRender" : true, 
       }
+      tempChildStatus=Object.assign({}, attribute, tempChildStatus);
       addChild(tempChildStatus);
       incrementCounter();
     }

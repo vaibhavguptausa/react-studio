@@ -27,11 +27,12 @@ export const modifyChild = (id, positionX, positionY) => {
   children[id]['y'] = positionY;
 }
 
-export const modifyChildAttributes = (id, height, width, color, text, ifRender) => {
-  children[id].height = height;
-  children[id].width = width;
-  children[id].color = color;
-  children[id].text = text;
+export const modifyChildAttributes = (id, attributes, ifRender) => {
+ 
+  Object.keys(attributes).map((key, ind)=>
+  {
+    children[id].key= attributes[key];
+  })
   children[id].ifRender= ifRender ;
 }
 

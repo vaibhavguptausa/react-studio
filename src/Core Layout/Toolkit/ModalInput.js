@@ -6,9 +6,7 @@ import { deleteChild } from './constants';
 export class Popup extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      height: this.props.height, width: this.props.width, color: this.props.color, type: this.props.type
-    };
+
   }
 
   onSave = () => {
@@ -16,23 +14,18 @@ export class Popup extends React.Component {
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
-    console.log(`input`, e.target.value)
-    console.log(this.state, 'state in modal')
-    this.props.onSave(this.state);
+    // this.setState({ [e.target.id]: e.target.value });
+    this.props.onSave(e.target.id, e.target.value);
   }
 
   handleChangeComplete = (color) => {
-    this.setState({ color: color.hex });
-    this.props.onSave(this.state);
+    //this.setState({ color: color.hex });
+    this.props.onSave(color, color.hex);
   };
 
-  // deleteChild = () => {
-  //   deleteChild(this.props.id);
-  // }
 
   render() {
-    
+
     if (this.props.modalState === true)
       return (
         <div>
@@ -45,7 +38,7 @@ export class Popup extends React.Component {
 
               <select
                 id="type"
-                value={this.state.type}
+                value={this.props.type}
                 placeholder=""
                 onChange={this.handleChange}
                 className="form-control"
@@ -58,11 +51,20 @@ export class Popup extends React.Component {
                 <option value="date">Date</option>
               </select>
 
+              <ControlLabel>Text</ControlLabel>
+              <FormControl
+                id="text"
+                type="text"
+                value={this.props.attributes.text}
+                placeholder="Enter text"
+                onChange={this.handleChange}
+              />
+
               <ControlLabel>Height</ControlLabel>
               <FormControl
                 id="height"
                 type="number"
-                value={this.state.height}
+                value={this.props.attributes.height}
                 placeholder="Enter width"
                 onChange={this.handleChange}
               />
@@ -71,16 +73,20 @@ export class Popup extends React.Component {
               <FormControl
                 id="width"
                 type="number"
-                value={this.state.width}
+                value={this.props.attributes.width}
                 placeholder="Enter width"
                 onChange={this.handleChange}
               />
+
+            
+
               <ControlLabel>Color</ControlLabel>
               <SketchPicker
-                color={this.state.color}
+                color={this.props.attributes.color}
                 onChangeComplete={this.handleChangeComplete}
               />
             </Modal.Body>
+
             <Modal.Footer>
               <Button onClick={this.props.onDelete}>delete item</Button>
               Right click to close

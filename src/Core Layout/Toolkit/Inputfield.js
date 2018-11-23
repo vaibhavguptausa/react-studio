@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ItemTypes, modifyChildAttributes } from './constants';
 import { DragSource } from 'react-dnd';
 import { Popup } from './ModalInput';
-
+import { attributesElementsInputfield } from './config'
 const inputSource = {
   beginDrag(props) {
     const { type, id, positionX, positionY, inputType } = props
@@ -13,7 +13,7 @@ const inputSource = {
 class InputField extends Component {
   constructor(props) {
     super(props);
-    this.state = { modalState: false, height: 50, width: 100, color: 'yellow', type: this.props.inputType, ifExists: this.props.status };
+    this.state = { modalState: false, attributes: attributesElementsInputfield, type: this.props.inputType, ifExists: this.props.status };
   }
 
   handleClick = (e) => {
@@ -29,9 +29,12 @@ class InputField extends Component {
     this.setState({ modalState: false });
   }
 
-  handleChangeAttributes = (parameters) => {
-    console.log(`para`, parameters);
-    this.setState({ height: parameters.height, width: parameters.width, color: parameters.color, type: parameters.type });
+  handleChangeAttributes = (name, value) => {
+    const attributes = this.state.attributes;
+    attributes[name] = value;
+    this.forceUpdate();
+    console.log(`state`, this.state)
+
   }
   handleDelete = () => {
     // deleteChild(this.props.id);
@@ -39,9 +42,27 @@ class InputField extends Component {
     this.setState({ ifExists: false });
 
   }
-
+  getStyles = () => {
+    var permstyle = {
+      'marginTop': `${this.props.positionY}px`,
+      'padding': `${5}px`,
+      'marginLeft': `${this.props.positionX}px`,
+      'position': 'inherit'
+    }
+    var styleObj = {};
+    Object.keys(this.state.attributes).map((key, ind) => {
+      if (isNaN(this.state.attributes[key]))
+        styleObj[key] = this.state.attributes[key];
+      else {
+        styleObj[key] = `${this.state.attributes[key]}px`;
+      }
+    })
+    styleObj = Object.assign({}, styleObj, permstyle);
+    console.log(`styleobj`, styleObj);
+    return styleObj;
+  }
   render() {
-    modifyChildAttributes(this.props.id, this.state.height, this.state.width, this.state.color, this.state.text, this.state.ifExists);
+    modifyChildAttributes(this.props.id, this.state.attributes, this.state.ifExists);
     const {
       hideSourceOnDrag,
       left,
@@ -58,13 +79,17 @@ class InputField extends Component {
 
     if (this.state.ifExists) {
       return (connectDragSource && connectDragSource(
-        <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ position: "inherit", height: `${this.state.height}px`, width: `${this.state.width}px`, marginTop: `${this.props.positionY}px`, padding: `${5}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
-          <input className={this.props.inputType!=='button'?"form-control":"btn btn-default"}
+        <div onClick={this.handleClick} onContextMenu={this.handleClick} style={this.getStyles()}>
+          {this.props.inputType !== 'button' ? <input className="form-control"
             type={this.props.inputType}
             style={{ height: `${100}%`, width: `${100}%` }}
             placeholder=""
-          />
-          {this.state.modalState ? <Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} type={this.state.type} height={this.state.height} width={this.state.width} onDelete={this.handleDelete} color={this.state.color} id={this.props.id}></Popup> : <div></div>}
+          /> : <input className="btn btn-default"
+            type={this.props.inputType}
+            style={{ height: `${100}%`, width: `${100}%` }}
+            placeholder="" value={this.state.attributes.text}
+            />}
+          {<Popup modalState={this.state.modalState} onClose={this.handleClose} onSave={this.handleChangeAttributes} type={this.state.type} attributes={this.state.attributes} onDelete={this.handleDelete} id={this.props.id}></Popup>}
         </div>))
     }
     else {

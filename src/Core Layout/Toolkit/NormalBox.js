@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { ItemTypes } from './constants';
-import { deleteChild,modifyChildAttributes } from './constants';
+import { deleteChild, modifyChildAttributes } from './constants';
 import { DragSource } from 'react-dnd';
 import { Popup } from './Modal';
-
+import {attributesElementsNormalBox} from './config'
 const boxSource = {
     beginDrag(props) {
         const { type, id, positionX, positionY } = props
@@ -14,7 +14,7 @@ const boxSource = {
 class NormalBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { modalState: false, height: 50, width: 70, color: 'lightBlue', text: '', ifExists: this.props.status };
+        this.state = { modalState: false, attributes: attributesElementsNormalBox, ifExists: this.props.status };
     }
 
     handleClick = (e) => {
@@ -30,20 +30,44 @@ class NormalBox extends Component {
         this.setState({ modalState: false });
     }
 
-    handleChangeAttributes = (parameters) => {
-        this.setState({ height: parameters.height, width: parameters.width, color: parameters.color, text: parameters.text });
-        //modifyChildAttributes(this.props.id,parameters.height, parameters.width, parameters.color,parameters.text);
+    handleChangeAttributes = (name, value) => {
+        const attributes= this.state.attributes;
+        attributes[name] = value;
+        this.forceUpdate();
+        console.log(`state`, this.state)
+        
     }
 
     handleDelete = () => {
         // deleteChild(this.props.id);
         console.log(`id`, this.props.id)
         this.setState({ ifExists: false });
-    
+
     }
+    getStyles = () => {
+        var permstyle = {
+          'border': `1px black solid`,
+          'marginTop': `${this.props.positionY}px`,
+          'padding': `${0}px`,
+          'marginLeft': `${this.props.positionX}px`,
+          'position': 'inherit'
+        }
+        var styleObj = {};
+        Object.keys(this.state.attributes).map((key, ind) => {
+          if (isNaN(this.state.attributes[key]))
+            styleObj[key] = this.state.attributes[key];
+          else {
+            styleObj[key] = `${this.state.attributes[key]}px`;
+          }
+        })
+        styleObj=Object.assign({}, styleObj, permstyle);
+        console.log(`styleobj`, styleObj);
+        return styleObj;
+      }
 
     render() {
-        modifyChildAttributes(this.props.id, this.state.height, this.state.width, this.state.color, this.state.text, this.state.ifExists);
+        modifyChildAttributes(this.props.id, this.state.attributes, this.state.ifExists);
+        console.log(`atrelem`, attributesElementsNormalBox);
         const {
             hideSourceOnDrag,
             connectDragSource,
@@ -54,10 +78,10 @@ class NormalBox extends Component {
         }
         if (this.state.ifExists) {
             return (connectDragSource && connectDragSource(
-                <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ height: `${this.state.height}px`, width: `${this.state.width}px`, backgroundColor: `${this.state.color}`, marginTop: `${this.props.positionY}px`, padding: `${0}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit', border: `1px black solid` }}>
-                    <h1>{this.state.text}</h1>
+                <div onClick={this.handleClick} onContextMenu={this.handleClick} style={this.getStyles()}>
+                    {this.state.attributes.text}
 
-                    {this.state.modalState ? <Popup modalState={this.state.modalState} id={this.props.id} onDelete={this.handleDelete} onClose={this.handleClose} onSave={this.handleChangeAttributes} id={this.props.id} text={this.state.text} height={this.state.height} width={this.state.width} color={this.state.color}></Popup> : <div></div>}
+                    <Popup modalState={this.state.modalState} id={this.props.id} onDelete={this.handleDelete} onClose={this.handleClose} onSave={this.handleChangeAttributes} attributes={attributesElementsNormalBox}></Popup>
                 </div>))
         }
         else
