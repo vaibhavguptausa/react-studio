@@ -32,7 +32,7 @@ export const modifyChildAttributes = (id, height, width, color, text, ifRender) 
   children[id].width = width;
   children[id].color = color;
   children[id].text = text;
-  children[id].ifRender= ifRender ;
+  children[id].ifRender = ifRender;
 }
 
 export const deleteChild = (id) => {

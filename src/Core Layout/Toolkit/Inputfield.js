@@ -59,7 +59,7 @@ class InputField extends Component {
     if (this.state.ifExists) {
       return (connectDragSource && connectDragSource(
         <div onClick={this.handleClick} onContextMenu={this.handleClick} style={{ position: "inherit", height: `${this.state.height}px`, width: `${this.state.width}px`, marginTop: `${this.props.positionY}px`, padding: `${5}px`, marginLeft: `${this.props.positionX}px`, position: 'inherit' }}>
-          <input className={this.props.inputType!=='button'?"form-control":"btn btn-default"}
+          <input className={this.props.inputType !== 'button' ? "form-control" : "btn btn-default"}
             type={this.props.inputType}
             style={{ height: `${100}%`, width: `${100}%` }}
             placeholder=""

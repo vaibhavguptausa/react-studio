@@ -16,7 +16,7 @@ const moveElement = (id, positionX, positionY) => {
 const inputTypes = {
   "BOX": "NORMALBOX",
   "DRAGGABLEINPUT": "INPUT",
-  
+
 }
 
 const Target = {
@@ -48,7 +48,7 @@ const Target = {
         "text": '',
         "type": inputTypes[item.type],
         "inputType": item.inputType,
-        "ifRender" : true, 
+        "ifRender": true,
       }
       addChild(tempChildStatus);
       incrementCounter();
@@ -63,10 +63,11 @@ class Droppable extends Component {
 
   render() {
     const { connectDropTarget } = this.props;
-    console.log(`children`,children)
+    console.log(`children`, children)
     return (
       connectDropTarget(
         <div className=".droppable" style={{
+          display: 'flex',
           position: 'absolute',
           width: '100%',
           height: '100%',
@@ -75,13 +76,13 @@ class Droppable extends Component {
           marginTop: `${0}px`
         }}>
           {children.map((child, index) => {
-            
+
             debugger
-            if (child.type === 'NORMALBOX' && child.ifRender===true)
+            if (child.type === 'NORMALBOX' && child.ifRender === true)
               return <NormalBox type='NORMALBOX' id={child.id} positionX={child.x} positionY={child.y} status={child.ifRender} />
-            else if (child.type === 'INPUT' && child.ifRender===true) {
+            else if (child.type === 'INPUT' && child.ifRender === true) {
               console.log(`passed props to input field`, child.inputType)
-              return <InputField type='INPUT' inputType={child.inputType}  id={child.id} positionX={child.x} positionY={child.y} status={child.ifRender} />
+              return <InputField type='INPUT' inputType={child.inputType} id={child.id} positionX={child.x} positionY={child.y} status={child.ifRender} />
             }
           })}
         </div>

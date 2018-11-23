@@ -10,11 +10,24 @@ const InputSource = {
 };
 
 class DraggableInputField extends Component {
-
+  giveStyle = () => {
+    if (this.props.inputType == 'button') {
+      var style = {
+        color: 'green',
+        width: '30%',
+        height: '50%'
+      }
+      return style;
+    }
+    else {
+      var style = {};
+      return style;
+    }
+  }
   render() {
     const { isDragging, connectDragSource, type } = this.props;
     return connectDragSource(<div style={{ height: `${50}px`, width: `${200}px`, marginTop: `${15}px`, marginLeft: `${-30}px` }}>
-    <input type={this.props.inputType} placeholder='write something' /></div>);
+      <input type={this.props.inputType} style={this.giveStyle()} placeholder='write something' /></div>);
   }
 }
 

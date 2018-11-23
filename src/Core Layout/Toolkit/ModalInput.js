@@ -32,7 +32,7 @@ export class Popup extends React.Component {
   // }
 
   render() {
-    
+
     if (this.props.modalState === true)
       return (
         <div>

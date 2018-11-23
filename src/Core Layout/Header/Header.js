@@ -1,6 +1,6 @@
 import React from 'react';
 import './header.css';
-import { htmlString ,createStyleClassesString} from './string';
+import { htmlString, createStyleClassesString } from './string';
 
 const saveText = (text, filename) => {
     var a = document.createElement('a');

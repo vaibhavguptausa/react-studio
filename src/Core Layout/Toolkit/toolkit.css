@@ -3,10 +3,12 @@
     background-color: #004983;
     border-right: 1px solid #666;
     position: fixed;
-    top: 78px;
+    top: 10%;
     bottom: 0;
     height: 100%;
     z-index: 10;
+    align-content: center;
+    box-sizing: content-box;
 }
 
 .main-menu > ul {
@@ -25,6 +27,8 @@
         top: 50px;
         bottom: 0;
         height: 100%;
+        align-content: center;
+        box-sizing: content-box;
     }
     .toolkit-sidebar div input {
         height: 50%;
@@ -32,6 +36,6 @@
         margin-bottom: 30px;
         margin-left: -35%; */
         width: 55%;
-        justify-content: center;
+        /* justify-content: center; */
     }
 }

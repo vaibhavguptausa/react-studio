@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ItemTypes } from './constants';
-import { deleteChild,modifyChildAttributes } from './constants';
+import { deleteChild, modifyChildAttributes } from './constants';
 import { DragSource } from 'react-dnd';
 import { Popup } from './Modal';
 
@@ -39,7 +39,7 @@ class NormalBox extends Component {
         // deleteChild(this.props.id);
         console.log(`id`, this.props.id)
         this.setState({ ifExists: false });
-    
+
     }
 
     render() {
