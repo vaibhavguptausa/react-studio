@@ -63,12 +63,10 @@ export const createStyleClassesString = () => {
             width: ${child.width}px;
             
             background-color: ${child.color};
-        }
-     `
+        }`
             }
         }
     })
-
     return str;
 }
 
@@ -81,10 +79,9 @@ const createComponentString = () => {
                 str = str + `
             <div className="Divstyle${id}">
             <h1>${child.text}</h1>
-            
             </div>`
             }
-            else if (child.type === "INPUT" && child.inputType!=='button') {
+            else if (child.type === "INPUT" && child.inputType !== 'button') {
                 str = str + `
             <div className="Divstyle${id}">
                 <input className="form-control"
@@ -92,11 +89,9 @@ const createComponentString = () => {
                     type="${child.inputType}"
                     placeholder=""
                 />
-            </div>
-            `
+            </div>`
             }
-            else
-            {
+            else {
                 str = str + `
                 <div className="Divstyle${id}">
                     <input className="btn btn-default"
@@ -104,8 +99,7 @@ const createComponentString = () => {
                         type="${child.inputType}"
                         placeholder=""
                     />
-                </div>
-                `
+                </div>`
             }
         }
     }
